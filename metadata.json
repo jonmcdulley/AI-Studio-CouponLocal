@@ -1,0 +1,7 @@
+{
+  "name": "CouponLocal - Local Coupon Finder",
+  "description": "Find and use digital coupons in your local area. Features a local store catalog, AI-powered categorization, and real-time deal searching.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
