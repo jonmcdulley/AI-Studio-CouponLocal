@@ -15,8 +15,11 @@ import {
   ExternalLink,
   BookOpen,
   Heart,
-  Bookmark
+  Bookmark,
+  Scan,
+  QrCode
 } from 'lucide-react';
+import { Html5QrcodeScanner } from 'html5-qrcode';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from './lib/utils';
 import { searchCoupons, getSuggestedCategories, reverseGeocode, getGroceryLinks, Coupon, GroceryLink } from './services/couponService';
@@ -76,6 +79,8 @@ export default function App() {
     return saved ? JSON.parse(saved) : [];
   });
   const [showSavedOnly, setShowSavedOnly] = useState(false);
+  const [isScannerOpen, setIsScannerOpen] = useState(false);
+  const [scannerError, setScannerError] = useState<string | null>(null);
 
   useEffect(() => {
     localStorage.setItem('savedCoupons', JSON.stringify(savedCoupons));
@@ -172,6 +177,51 @@ export default function App() {
     } finally {
       setSearching(false);
     }
+  };
+
+  const handleScannedCoupon = (data: string) => {
+    try {
+      // Try to parse as JSON first
+      const parsed = JSON.parse(data);
+      if (parsed.store && parsed.offer) {
+        const newCoupon: Coupon = {
+          id: `scanned-${Date.now()}`,
+          store: parsed.store,
+          offer: parsed.offer,
+          description: parsed.description || "Scanned digital coupon",
+          category: parsed.category || "Scanned",
+          expiryDate: parsed.expiryDate || new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+          code: parsed.code || data.substring(0, 10),
+          requiresPrinting: parsed.requiresPrinting ?? false
+        };
+        setSavedCoupons(prev => {
+          if (prev.some(c => c.code === newCoupon.code)) return prev;
+          return [...prev, newCoupon];
+        });
+        setIsScannerOpen(false);
+        return;
+      }
+    } catch (e) {
+      // Not JSON, handle as raw code
+    }
+
+    // Fallback: Create a generic coupon from the scanned code
+    const genericCoupon: Coupon = {
+      id: `scanned-${Date.now()}`,
+      store: "Scanned Coupon",
+      offer: "Special Deal",
+      description: `Scanned code: ${data}`,
+      category: "Scanned",
+      expiryDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+      code: data,
+      requiresPrinting: false
+    };
+    
+    setSavedCoupons(prev => {
+      if (prev.some(c => c.code === genericCoupon.code)) return prev;
+      return [...prev, genericCoupon];
+    });
+    setIsScannerOpen(false);
   };
 
   const filteredCoupons = (showSavedOnly ? savedCoupons : coupons).filter(coupon => {
@@ -304,6 +354,15 @@ export default function App() {
               </h1>
             </div>
             <div className="flex items-center gap-2">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setIsScannerOpen(true)}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold transition-all border bg-white/80 border-white text-indigo-600 hover:bg-indigo-50 shadow-sm"
+              >
+                <Scan size={14} />
+                <span>Scan</span>
+              </motion.button>
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -735,6 +794,41 @@ export default function App() {
             </motion.div>
           </div>
         )}
+
+        {isScannerOpen && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+            <motion.div 
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="bg-white rounded-3xl w-full max-w-md overflow-hidden shadow-2xl"
+            >
+              <div className="p-6 border-b flex items-center justify-between bg-indigo-50">
+                <div className="flex items-center gap-2">
+                  <QrCode className="text-indigo-600" />
+                  <h2 className="text-xl font-bold text-gray-900">Scan Coupon</h2>
+                </div>
+                <button 
+                  onClick={() => setIsScannerOpen(false)}
+                  className="p-2 hover:bg-white rounded-full transition-colors"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+              
+              <div className="p-6">
+                <div id="reader" className="overflow-hidden rounded-2xl border-2 border-dashed border-indigo-200" />
+                
+                <div className="mt-6 text-center">
+                  <p className="text-sm text-gray-500">
+                    Point your camera at a coupon barcode or QR code to automatically save it.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+            <ScannerInitializer onScan={handleScannedCoupon} />
+          </div>
+        )}
       </AnimatePresence>
 
       {/* Footer Nav (Mobile Style) */}
@@ -745,6 +839,15 @@ export default function App() {
         >
           <Ticket size={24} />
           <span className="text-[10px] font-bold uppercase tracking-wider">Deals</span>
+        </button>
+        <button 
+          onClick={() => setIsScannerOpen(true)}
+          className="flex flex-col items-center gap-1 text-indigo-600"
+        >
+          <div className="w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center text-white -mt-8 shadow-lg shadow-indigo-200 border-4 border-white">
+            <Scan size={24} />
+          </div>
+          <span className="text-[10px] font-bold uppercase tracking-wider">Scan</span>
         </button>
         <button className="flex flex-col items-center gap-1 text-gray-400">
           <Search size={24} />
@@ -761,3 +864,26 @@ export default function App() {
     </div>
   );
 }
+
+const ScannerInitializer = ({ onScan }: { onScan: (data: string) => void }) => {
+  useEffect(() => {
+    const scanner = new Html5QrcodeScanner("reader", { 
+      fps: 10, 
+      qrbox: { width: 250, height: 250 },
+      aspectRatio: 1.0
+    }, false);
+
+    scanner.render((decodedText) => {
+      onScan(decodedText);
+      scanner.clear();
+    }, (error) => {
+      // console.warn(error);
+    });
+
+    return () => {
+      scanner.clear().catch(err => console.error("Scanner cleanup error", err));
+    };
+  }, [onScan]);
+
+  return null;
+};

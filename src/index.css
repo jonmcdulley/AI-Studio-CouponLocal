@@ -24,4 +24,24 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+
+  /* html5-qrcode UI styling */
+  #reader {
+    border: none !important;
+  }
+  #reader button {
+    @apply px-4 py-2 bg-indigo-600 text-white rounded-xl font-bold text-sm hover:bg-indigo-700 transition-colors cursor-pointer border-none shadow-sm mt-2;
+  }
+  #reader select {
+    @apply px-3 py-2 bg-white border border-gray-200 rounded-xl text-sm outline-none focus:ring-2 focus:ring-indigo-500/20 mb-2;
+  }
+  #reader__scan_region {
+    @apply rounded-2xl overflow-hidden bg-gray-100;
+  }
+  #reader__dashboard_section_csr {
+    @apply flex flex-col items-center gap-2 mt-4;
+  }
+  #reader__status_span {
+    @apply text-xs font-medium text-gray-500 mt-2 block;
+  }
 }
