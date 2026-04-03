@@ -62,7 +62,7 @@ const LivelyBackground = () => {
 };
 
 export default function App() {
-  const [location, setLocation] = useState<string>('Detecting location...');
+  const [location, setLocation] = useState<string>('');
   const [isEditingLocation, setIsEditingLocation] = useState(false);
   const [tempLocation, setTempLocation] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
@@ -70,7 +70,7 @@ export default function App() {
   const [categories, setCategories] = useState<string[]>([]);
   const [groceryLinks, setGroceryLinks] = useState<GroceryLink[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [searching, setSearching] = useState(false);
   const [isLocating, setIsLocating] = useState(false);
   const [selectedCoupon, setSelectedCoupon] = useState<Coupon | null>(null);
@@ -99,10 +99,6 @@ export default function App() {
   };
 
   const isSaved = (id: string) => savedCoupons.some(c => c.id === id);
-
-  useEffect(() => {
-    initLocation();
-  }, []);
 
   const initLocation = () => {
     setIsLocating(true);
@@ -441,7 +437,7 @@ export default function App() {
                   </div>
                 ) : (
                   <span className="truncate max-w-[150px]">
-                    {isLocating ? 'Locating...' : location}
+                    {isLocating ? 'Locating...' : (location || 'Set location')}
                   </span>
                 )}
               </div>
@@ -646,10 +642,26 @@ export default function App() {
           {!loading && coupons.length === 0 && (
             <div className="text-center py-20 bg-gray-50 rounded-3xl border border-dashed border-gray-200">
               <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 text-gray-400">
-                <Ticket size={32} />
+                {location ? <Ticket size={32} /> : <MapPin size={32} />}
               </div>
-              <h3 className="text-gray-900 font-bold mb-1">No coupons found</h3>
-              <p className="text-gray-500 text-sm">Try searching for something else or changing categories.</p>
+              <h3 className="text-gray-900 font-bold mb-1">
+                {location ? "No coupons found" : "Set your location"}
+              </h3>
+              <p className="text-gray-500 text-sm">
+                {location 
+                  ? "Try searching for something else or changing categories." 
+                  : "Enter a city or use your current location to find deals nearby."}
+              </p>
+              {!location && (
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setIsEditingLocation(true)}
+                  className="mt-6 px-6 py-2.5 bg-indigo-600 text-white rounded-full font-bold text-sm shadow-lg shadow-indigo-200"
+                >
+                  Set Location
+                </motion.button>
+              )}
             </div>
           )}
         </div>
