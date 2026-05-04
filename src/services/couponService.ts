@@ -1,5 +1,3 @@
-import { GoogleGenAI } from "@google/genai";
-
 export interface Coupon {
   id: string;
   store: string;
@@ -21,18 +19,30 @@ export interface GroceryLink {
 }
 
 const REAL_DEALS: Coupon[] = [
-  { id: "ia-trip-1", store: "Trip.com", offer: "Up to 5.6% OFF", description: "Book hotels, flights & tours worldwide. Upsized commission deal — limited time.", category: "Travel", expiryDate: "2026-08-17", code: "TRIP56", requiresPrinting: false, affiliateUrl: "https://invl.me/aff_m?offer_id=103062&aff_id=1082572" },
+  { id: "ia-trip-1", store: "Trip.com", offer: "Up to 5.6% OFF", description: "Book hotels, flights & tours worldwide. Upsized commission deal.", category: "Travel", expiryDate: "2026-08-17", code: "TRIP56", requiresPrinting: false, affiliateUrl: "https://invl.me/aff_m?offer_id=103062&aff_id=1082572" },
   { id: "ia-traveloka-1", store: "Traveloka", offer: "Up to 3.45% OFF", description: "Flights, hotels & experiences across Asia. Great rates for SEA travel.", category: "Travel", expiryDate: "2027-02-27", code: "TRAVELOKA345", requiresPrinting: false, affiliateUrl: "https://invl.me/aff_m?offer_id=103515&aff_id=1082572" },
   { id: "ia-hotels-1", store: "Hotels.com", offer: "3.15% Cashback", description: "Exclusive hotel deals worldwide. Limited-time Japan hotel discounts.", category: "Travel", expiryDate: "2026-05-31", code: "HOTELSPH", requiresPrinting: false, affiliateUrl: "https://invl.me/aff_m?offer_id=102739&aff_id=1082572" },
-  { id: "ia-expedia-1", store: "Expedia", offer: "Up to 3.85% OFF", description: "Bundle flights + hotels for maximum savings. Japan deals available now.", category: "Travel", expiryDate: "2026-05-31", code: "EXPEDIAPH", requiresPrinting: false, affiliateUrl: "https://invl.me/aff_m?offer_id=102564&aff_id=1082572" },
   { id: "ia-tiktok-1", store: "TikTok Shop", offer: "Up to 56% OFF", description: "Massive discounts on TikTok Shop Philippines. New deals added daily.", category: "Fashion", expiryDate: "2026-12-31", code: "TIKTOK56", requiresPrinting: false, affiliateUrl: "https://invl.us/aff_m?offer_id=103944&aff_id=1082572" },
-  { id: "ia-appsumo-1", store: "AppSumo", offer: "7% OFF", description: "Lifetime deals on software & digital tools for entrepreneurs and developers.", category: "Tech", expiryDate: "2026-12-31", code: "APPSUMO7", requiresPrinting: false, affiliateUrl: "https://invl.us/aff_m?offer_id=103910&aff_id=1082572" },
-  { id: "ia-binge-1", store: "BINGE Movies & TV", offer: "USD $5.60 Bonus", description: "Stream the latest movies and TV shows. Sign up and earn a cashback bonus.", category: "Entertainment", expiryDate: "2026-12-31", code: "BINGE560", requiresPrinting: false, affiliateUrl: "https://invl.us/aff_m?offer_id=103939&aff_id=1082572" },
-  { id: "ia-ck-1", store: "Charles & Keith PH", offer: "Up to 3.5% Cashback", description: "Shop the latest bags, shoes & accessories.", category: "Fashion", expiryDate: "2026-12-31", code: "CK35", requiresPrinting: false, affiliateUrl: "https://invl.me/clnfk17" },
-  { id: "ia-byfood-1", store: "byFood", offer: "4.2% Commission", description: "Book food tours & cooking classes across Asia.", category: "Dining", expiryDate: "2026-12-31", code: "BYFOOD", requiresPrinting: false, affiliateUrl: "https://invl.us/clnfk1r" },
-  { id: "ia-zen-1", store: "Zen Hotels", offer: "3.5% Commission", description: "Find great hotel deals across Asia.", category: "Travel", expiryDate: "2026-12-31", code: "ZENHOTEL", requiresPrinting: false, affiliateUrl: "https://invl.app/clnfk1z" },
-  { id: "ia-trainpal-1", store: "TrainPal", offer: "1.4% Commission", description: "Save on train tickets across Europe & Asia.", category: "Travel", expiryDate: "2026-12-31", code: "TRAINPAL", requiresPrinting: false, affiliateUrl: "https://invl.us/clnfk26" },
-  { id: "ia-flower-1", store: "FlowerAdvisor PH", offer: "6% Commission", description: "Send flowers & gifts anywhere in the Philippines.", category: "Lifestyle", expiryDate: "2026-12-31", code: "FLOWER6", requiresPrinting: false, affiliateUrl: "https://invl.me/clnfk2m" },
+  { id: "ia-appsumo-1", store: "AppSumo", offer: "7% OFF", description: "Lifetime deals on software & digital tools for entrepreneurs.", category: "Tech", expiryDate: "2026-12-31", code: "APPSUMO7", requiresPrinting: false, affiliateUrl: "https://invl.us/aff_m?offer_id=103910&aff_id=1082572" },
+  { id: "ia-binge-1", store: "BINGE Movies & TV", offer: "USD $5.60 Bonus", description: "Stream the latest movies and TV shows. Sign up and earn a bonus.", category: "Entertainment", expiryDate: "2026-12-31", code: "BINGE560", requiresPrinting: false, affiliateUrl: "https://invl.us/aff_m?offer_id=103939&aff_id=1082572" },
+  { id: "ia-ck-1", store: "Charles & Keith PH", offer: "Up to 3.5% Cashback", description: "Shop the latest bags, shoes & accessories.", category: "Fashion", expiryDate: "2026-12-31", code: "CK35", requiresPrinting: false, affiliateUrl: "https://invl.me/clnfk9t" },
+  { id: "ia-byfood-1", store: "byFood", offer: "4.2% Commission", description: "Book food tours & cooking classes across Asia.", category: "Dining", expiryDate: "2026-12-31", code: "BYFOOD", requiresPrinting: false, affiliateUrl: "https://invl.us/clnfk95" },
+  { id: "ia-zen-1", store: "Zen Hotels", offer: "3.5% Commission", description: "Find great hotel deals across Asia.", category: "Travel", expiryDate: "2026-12-31", code: "ZENHOTEL", requiresPrinting: false, affiliateUrl: "https://invl.app/clnfk9k" },
+  { id: "ia-trainpal-1", store: "TrainPal", offer: "1.4% Commission", description: "Save on train tickets across Europe & Asia.", category: "Travel", expiryDate: "2026-12-31", code: "TRAINPAL", requiresPrinting: false, affiliateUrl: "https://invl.us/clnfk9q" },
+  { id: "ia-flower-1", store: "FlowerAdvisor PH", offer: "6% Commission", description: "Send flowers & gifts anywhere in the Philippines.", category: "Lifestyle", expiryDate: "2026-12-31", code: "FLOWER6", requiresPrinting: false, affiliateUrl: "https://invl.me/clnfk9x" },
+  { id: "ia-shopee-1", store: "Shopee PH", offer: "2.8% Cashback", description: "Shop millions of products on Shopee Philippines with cashback.", category: "Fashion", expiryDate: "2026-12-31", code: "SHOPEEPH", requiresPrinting: false, affiliateUrl: "https://invl.me/clnfk8z" },
+  { id: "ia-banggood-1", store: "Banggood Global", offer: "Up to 21% OFF", description: "Gadgets, electronics and more at huge discounts worldwide.", category: "Tech", expiryDate: "2026-12-31", code: "BANGGOOD21", requiresPrinting: false, affiliateUrl: "https://invl.me/clnfk96" },
+  { id: "ia-wegic-1", store: "Wegic AI", offer: "Up to 31.5% OFF", description: "AI-powered website builder. Create stunning sites in minutes.", category: "Tech", expiryDate: "2026-12-31", code: "WEGIC31", requiresPrinting: false, affiliateUrl: "https://invl.us/clnfk98" },
+  { id: "ia-sider-1", store: "Sider AI", offer: "Up to 49% OFF", description: "AI assistant for browsing, writing and productivity.", category: "Tech", expiryDate: "2026-12-31", code: "SIDER49", requiresPrinting: false, affiliateUrl: "https://invl.me/clnfk9a" },
+  { id: "ia-shein-1", store: "Shein Global", offer: "Up to 60% OFF", description: "Trendy fashion at unbeatable prices. Up to 60% off exclusive deals.", category: "Fashion", expiryDate: "2026-12-31", code: "SHEIN60", requiresPrinting: false, affiliateUrl: "https://miniurl.app/clnfk9b" },
+  { id: "ia-udemy-1", store: "Udemy", offer: "Up to 14% OFF", description: "Learn anything with online courses from top instructors worldwide.", category: "Education", expiryDate: "2026-12-31", code: "UDEMY14", requiresPrinting: false, affiliateUrl: "https://invl.me/clnfk9h" },
+  { id: "ia-wps-1", store: "WPS Software", offer: "Up to 49% OFF", description: "Office suite alternative with Writer, Spreadsheet & Presentation.", category: "Tech", expiryDate: "2027-06-16", code: "WPS49", requiresPrinting: false, affiliateUrl: "https://invl.app/clnfk9n" },
+  { id: "ia-taobao-1", store: "Taobao", offer: "Up to 18.3% OFF", description: "Shop millions of products from China's largest marketplace.", category: "Fashion", expiryDate: "2026-12-31", code: "TAOBAO18", requiresPrinting: false, affiliateUrl: "https://invl.me/clnfk9p" },
+  { id: "ia-protonvpn-1", store: "Proton VPN", offer: "Up to 70% OFF", description: "Secure your internet with the world's most trusted VPN service.", category: "Tech", expiryDate: "2026-12-31", code: "PROTON70", requiresPrinting: false, affiliateUrl: "https://invl.me/clnfk9v" },
+  { id: "ia-kkday-1", store: "KKday Global", offer: "Up to 3.5% OFF", description: "Book tours, activities and experiences across Asia and worldwide.", category: "Travel", expiryDate: "2026-12-31", code: "KKDAY35", requiresPrinting: false, affiliateUrl: "https://invl.me/clnfk9w" },
+  { id: "ia-bernardelli-1", store: "Bernardelli Store", offer: "5.6% Commission", description: "Premium Italian fashion and lifestyle products worldwide.", category: "Fashion", expiryDate: "2026-12-31", code: "BERN56", requiresPrinting: false, affiliateUrl: "https://invl.me/clnfk9z" },
+  { id: "ia-airalo-1", store: "Airalo eSIM", offer: "Up to 14% OFF", description: "Buy eSIMs for travel in 200+ countries. No physical SIM needed.", category: "Travel", expiryDate: "2026-12-31", code: "AIRALO14", requiresPrinting: false, affiliateUrl: "https://invl.me/clnfka0" },
+  { id: "ia-sephora-1", store: "Sephora PH", offer: "Up to 5.6% Cashback", description: "Shop premium beauty, skincare and makeup from top brands.", category: "Beauty", expiryDate: "2026-12-31", code: "SEPHORA56", requiresPrinting: false, affiliateUrl: "https://invl.me/clnfka2" },
 ];
 
 export async function searchCoupons(location: string, query: string = ""): Promise<Coupon[]> {
@@ -47,7 +57,7 @@ export async function searchCoupons(location: string, query: string = ""): Promi
 }
 
 export async function getSuggestedCategories(_location: string): Promise<string[]> {
-  return ["Travel", "Fashion", "Tech", "Dining", "Entertainment", "Lifestyle"];
+  return ["Travel", "Fashion", "Tech", "Dining", "Entertainment", "Beauty", "Education"];
 }
 
 export async function reverseGeocode(lat: number, lng: number): Promise<string> {
