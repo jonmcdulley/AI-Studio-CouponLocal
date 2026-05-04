@@ -258,7 +258,7 @@ export default function App() {
         key={coupon.id}
         whileHover={{ scale: 1.02, y: -4 }}
         whileTap={{ scale: 0.98 }}
-        onClick={() => setSelectedCoupon(coupon)}
+        onClick={() => coupon.affiliateUrl ? window.open(coupon.affiliateUrl, '_blank') : setSelectedCoupon(coupon)}
         className={cn(
           "bg-white/60 backdrop-blur-md border rounded-3xl p-5 shadow-sm hover:shadow-xl transition-all cursor-pointer group relative overflow-hidden",
           expiringSoon ? "border-red-200 shadow-red-100/50" : "border-white/40"
