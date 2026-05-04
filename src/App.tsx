@@ -338,7 +338,13 @@ export default function App() {
             "flex items-center gap-1 font-bold text-sm",
             expiringSoon ? "text-red-600" : (coupon.requiresPrinting ? "text-orange-600" : "text-indigo-600")
           )}>
-            {coupon.requiresPrinting ? "Print Now" : "Use Now"} <ChevronRight size={16} />
+            {coupon.affiliateUrl ? (
+  <a href={coupon.affiliateUrl} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="flex items-center gap-1">
+    {coupon.requiresPrinting ? "Print Now" : "Use Now"} <ChevronRight size={16} />
+  </a>
+) : (
+  <>{coupon.requiresPrinting ? "Print Now" : "Use Now"} <ChevronRight size={16} /></>
+)}
           </div>
         </div>
       </motion.div>
