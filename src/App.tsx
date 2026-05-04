@@ -31,7 +31,7 @@ const LivelyBackground = () => {
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105"
         style={{ 
-          backgroundImage: `url('https://raw.githubusercontent.com/jonmcdulley/AI-Studio-CouponLocal/main/Coupon%20Hunter%20Background.png')`,
+          backgroundImage: `url('https://raw.githubusercontent.com/jonmcdulley/AI-Studio-CouponLocal/main/Background.png')`,
           filter: 'blur(1px) brightness(0.95)'
         }} 
       />
@@ -354,7 +354,7 @@ export default function App() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div className="h-24 flex items-center justify-center overflow-hidden">
-                <img src="https://raw.githubusercontent.com/jonmcdulley/AI-Studio-CouponLocal/main/Coupon%20Hunter%20Logo.png" alt="Coupon Hunter" className="h-full w-auto object-contain" referrerPolicy="no-referrer" />
+                <img src="https://raw.githubusercontent.com/jonmcdulley/AI-Studio-CouponLocal/main/Logo.png" alt="Coupon Hunter" className="h-full w-auto object-contain" referrerPolicy="no-referrer" />
               </div>
             </div>
             <div className="flex items-center gap-2">
