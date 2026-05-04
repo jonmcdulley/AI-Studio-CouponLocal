@@ -31,7 +31,7 @@ const LivelyBackground = () => {
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105"
         style={{ 
-          backgroundImage: `url('https://drive.google.com/uc?export=download&id=1xD_5eCJgt7FUwufm8_kMBWRhW0mLeHds')`,
+          backgroundImage: `url('https://raw.githubusercontent.com/jonmcdulley/AI-Studio-CouponLocal/main/Coupon%20Hunter%20Background.png')`,
           filter: 'blur(1px) brightness(0.95)'
         }} 
       />
@@ -86,6 +86,8 @@ export default function App() {
     const savedLocation = localStorage.getItem('savedLocation');
     if (savedLocation) {
       loadInitialData(savedLocation);
+    } else {
+      initLocation();
     }
   }, []);
 
@@ -351,12 +353,9 @@ export default function App() {
         <div className="max-w-2xl mx-auto flex flex-col gap-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-lg shadow-indigo-200 overflow-hidden">
-                <img src="https://drive.google.com/uc?export=download&id=1MPfCFDpkVRnSOxJh3BNiuGVgusseQBAz" alt="Logo" className="w-full h-full object-contain p-1" referrerPolicy="no-referrer" />
+              <div className="h-24 flex items-center justify-center overflow-hidden">
+                <img src="https://raw.githubusercontent.com/jonmcdulley/AI-Studio-CouponLocal/main/Coupon%20Hunter%20Logo.png" alt="Coupon Hunter" className="h-full w-auto object-contain" referrerPolicy="no-referrer" />
               </div>
-              <h1 className="text-xl font-montserrat font-bold tracking-tight">
-                Coupon<span className="text-orange-500">Local</span>
-              </h1>
             </div>
             <div className="flex items-center gap-2">
               <motion.button
@@ -478,7 +477,7 @@ export default function App() {
         {/* AI Categories */}
         <section className="mb-8">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-sm font-bold uppercase tracking-wider text-gray-400">AI Suggested Categories</h2>
+            <h2 className="text-sm font-bold uppercase tracking-wider text-gray-400">Browse Categories</h2>
             {selectedCategory && (
               <button 
                 onClick={() => setSelectedCategory(null)}
@@ -538,7 +537,7 @@ export default function App() {
         <section className="mb-10">
           <div className="flex items-center gap-2 mb-4">
             <BookOpen size={18} className="text-indigo-600" />
-            <h2 className="text-sm font-bold uppercase tracking-wider text-gray-400">Grocery Flyers & Coupons</h2>
+            <h2 className="text-sm font-bold uppercase tracking-wider text-gray-400">Popular Coupon Sites</h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {loading ? (
