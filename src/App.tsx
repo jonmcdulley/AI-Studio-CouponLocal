@@ -306,6 +306,21 @@ export default function App() {
                   Expiring Soon!
                 </span>
               )}
+              {!expiringSoon && coupon.offer && (() => {
+                const match = coupon.offer.match(/(\d+(\.\d+)?)/);
+                const pct = match ? parseFloat(match[1]) : 0;
+                if (pct >= 10) return (
+                  <span className="inline-block px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-lg bg-orange-50 text-orange-600 border border-orange-100">
+                    🔥 Hot
+                  </span>
+                );
+                if (pct >= 6) return (
+                  <span className="inline-block px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-lg bg-yellow-50 text-yellow-600 border border-yellow-100">
+                    ⭐ Featured
+                  </span>
+                );
+                return null;
+              })()}
             </div>
             <h3 className="text-lg font-bold text-gray-900 group-hover:text-indigo-600 transition-colors">{coupon.store}</h3>
           </div>
