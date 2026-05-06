@@ -19,12 +19,6 @@ export interface GroceryLink {
 }
 
 const REAL_DEALS: Coupon[] = [
-  { id: "ia-trip-1", store: "Trip.com", offer: "Up to 5.6% OFF", description: "Book hotels, flights & tours worldwide. Upsized commission deal.", category: "Travel", expiryDate: "2026-08-17", code: "TRIP56", requiresPrinting: false, affiliateUrl: "https://invl.me/aff_m?offer_id=103062&aff_id=1082572" },
-  { id: "ia-traveloka-1", store: "Traveloka", offer: "Up to 3.45% OFF", description: "Flights, hotels & experiences across Asia. Great rates for SEA travel.", category: "Travel", expiryDate: "2027-02-27", code: "TRAVELOKA345", requiresPrinting: false, affiliateUrl: "https://invl.me/aff_m?offer_id=103515&aff_id=1082572" },
-  { id: "ia-hotels-1", store: "Hotels.com", offer: "3.15% Cashback", description: "Exclusive hotel deals worldwide. Limited-time Japan hotel discounts.", category: "Travel", expiryDate: "2026-05-31", code: "HOTELSPH", requiresPrinting: false, affiliateUrl: "https://invl.me/aff_m?offer_id=102739&aff_id=1082572" },
-  { id: "ia-tiktok-1", store: "TikTok Shop", offer: "Up to 56% OFF", description: "Massive discounts on TikTok Shop Philippines. New deals added daily.", category: "Fashion", expiryDate: "2026-12-31", code: "TIKTOK56", requiresPrinting: false, affiliateUrl: "https://invl.us/aff_m?offer_id=103944&aff_id=1082572" },
-  { id: "ia-appsumo-1", store: "AppSumo", offer: "7% OFF", description: "Lifetime deals on software & digital tools for entrepreneurs.", category: "Tech", expiryDate: "2026-12-31", code: "APPSUMO7", requiresPrinting: false, affiliateUrl: "https://invl.us/aff_m?offer_id=103910&aff_id=1082572" },
-  { id: "ia-binge-1", store: "BINGE Movies & TV", offer: "USD $5.60 Bonus", description: "Stream the latest movies and TV shows. Sign up and earn a bonus.", category: "Entertainment", expiryDate: "2026-12-31", code: "BINGE560", requiresPrinting: false, affiliateUrl: "https://invl.us/aff_m?offer_id=103939&aff_id=1082572" },
   { id: "ia-ck-1", store: "Charles & Keith PH", offer: "Up to 3.5% Cashback", description: "Shop the latest bags, shoes & accessories.", category: "Fashion", expiryDate: "2026-12-31", code: "CK35", requiresPrinting: false, affiliateUrl: "https://invl.me/clnfk9t" },
   { id: "ia-byfood-1", store: "byFood", offer: "4.2% Commission", description: "Book food tours & cooking classes across Asia.", category: "Dining", expiryDate: "2026-12-31", code: "BYFOOD", requiresPrinting: false, affiliateUrl: "https://invl.us/clnfk95" },
   { id: "ia-zen-1", store: "Zen Hotels", offer: "3.5% Commission", description: "Find great hotel deals across Asia.", category: "Travel", expiryDate: "2026-12-31", code: "ZENHOTEL", requiresPrinting: false, affiliateUrl: "https://invl.app/clnfk9k" },
@@ -75,10 +69,8 @@ export async function reverseGeocode(lat: number, lng: number): Promise<string> 
 export async function getGroceryLinks(_location: string): Promise<GroceryLink[]> {
   return [
     { name: "Shopee Vouchers", url: "https://shopee.ph/voucher", type: "coupon", description: "Daily vouchers and flash deals on Shopee Philippines." },
-    { name: "Lazada Coupons", url: "https://www.lazada.com.ph/coupon/", type: "coupon", description: "Collect coupons and enjoy mega sales on Lazada." },
     { name: "Agoda Deals", url: "https://www.agoda.com/deals", type: "flyer", description: "Best hotel deals across Asia and worldwide." },
     { name: "Klook Activities", url: "https://www.klook.com/en-PH/deals/", type: "flyer", description: "Discounted tours, activities and travel experiences." },
     { name: "Zalora Sale", url: "https://www.zalora.com.ph/sale/", type: "flyer", description: "Fashion deals and seasonal sales across top brands." },
-    { name: "Trip.com Promos", url: "https://www.trip.com/sale/", type: "coupon", description: "Flight and hotel promos for Asia and global travel." },
   ];
 }
