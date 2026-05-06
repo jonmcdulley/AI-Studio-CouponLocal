@@ -29,7 +29,7 @@ const LivelyBackground = () => {
     <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
       {/* Background Image with Overlay */}
       <div 
-        className="absolute inset-0 bg-cover bg-no-repeat scale-105" style={{ backgroundPosition: 'left center' }}
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105"
         style={{ 
           backgroundImage: `url('/background.png')`,
           filter: 'blur(1px) brightness(0.95)'
