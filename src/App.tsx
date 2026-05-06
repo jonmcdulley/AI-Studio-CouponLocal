@@ -281,6 +281,14 @@ export default function App() {
         <div className="relative flex justify-between items-start mb-3">
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-2">
+              {coupon.logo && (
+                <img
+                  src={coupon.logo}
+                  alt={coupon.store}
+                  className="w-6 h-6 rounded-md object-contain bg-white border border-gray-100 p-0.5"
+                  onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                />
+              )}
               <span className={cn(
                 "inline-block px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-lg",
                 coupon.requiresPrinting ? "bg-orange-50 text-orange-600" : "bg-indigo-50 text-indigo-600"
@@ -565,7 +573,16 @@ export default function App() {
                     "w-12 h-12 rounded-xl flex items-center justify-center shrink-0 transition-colors",
                     link.type === 'flyer' ? "bg-emerald-50 text-emerald-600" : "bg-indigo-50 text-indigo-600"
                   )}>
-                    {link.type === 'flyer' ? <BookOpen size={24} /> : <Ticket size={24} />}
+                    {link.logo ? (
+                      <img
+                        src={link.logo}
+                        alt={link.name}
+                        className="w-8 h-8 object-contain rounded-lg"
+                        onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                      />
+                    ) : (
+                      link.type === 'flyer' ? <BookOpen size={24} /> : <Ticket size={24} />
+                    )}
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-1.5 mb-0.5">
