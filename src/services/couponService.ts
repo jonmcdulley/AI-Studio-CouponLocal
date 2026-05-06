@@ -37,6 +37,8 @@ const REAL_DEALS: Coupon[] = [
   { id: "ia-bernardelli-1", store: "Bernardelli Store", offer: "5.6% Commission", description: "Premium Italian fashion and lifestyle products worldwide.", category: "Fashion", expiryDate: "2026-12-31", code: "BERN56", requiresPrinting: false, affiliateUrl: "https://invl.me/clnfk9z" },
   { id: "ia-airalo-1", store: "Airalo eSIM", offer: "Up to 14% OFF", description: "Buy eSIMs for travel in 200+ countries. No physical SIM needed.", category: "Travel", expiryDate: "2026-12-31", code: "AIRALO14", requiresPrinting: false, affiliateUrl: "https://invl.me/clnfka0" },
   { id: "ia-sephora-1", store: "Sephora PH", offer: "Up to 5.6% Cashback", description: "Shop premium beauty, skincare and makeup from top brands.", category: "Beauty", expiryDate: "2026-12-31", code: "SEPHORA56", requiresPrinting: false, affiliateUrl: "https://invl.me/clnfka2" },
+{ id: "ia-papique-1", store: "Papique", offer: "7% Commission", description: "Discover premium beauty and skincare products. Earn cashback on every purchase.", category: "Beauty", expiryDate: "2026-12-31", code: "PAPIQUE7", requiresPrinting: false, affiliateUrl: "https://invl.us/clnfqhf" },
+  { id: "ia-airpaz-1", store: "Airpaz Global", offer: "0.98% Cashback", description: "Find the perfect flight deal for your trip. Book cheap flights worldwide on the Airpaz app.", category: "Travel", expiryDate: "2026-12-31", code: "AIRPAZ", requiresPrinting: false, affiliateUrl: "https://invl.me/clnfqhm" },
 ];
 
 export async function searchCoupons(location: string, query: string = ""): Promise<Coupon[]> {
