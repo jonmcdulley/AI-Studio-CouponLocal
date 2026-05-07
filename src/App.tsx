@@ -18,16 +18,11 @@ import {
   BookOpen,
   Heart,
   Bookmark,
-  Scan,
-  QrCode,
   Newspaper
 } from 'lucide-react';
-import { Html5QrcodeScanner } from 'html5-qrcode';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from './lib/utils';
 import { searchCoupons, getSuggestedCategories, reverseGeocode, getGroceryLinks, Coupon, GroceryLink } from './services/couponService';
-import AboutPage from './AboutPage';
-import BlogPage from './BlogPage';
 
 const LivelyBackground = () => {
   return (
@@ -75,8 +70,6 @@ export default function App() {
     return saved ? JSON.parse(saved) : [];
   });
   const [showSavedOnly, setShowSavedOnly] = useState(false);
-  const [isScannerOpen, setIsScannerOpen] = useState(false);
-  const [scannerError, setScannerError] = useState<string | null>(null);
 
   useEffect(() => {
     localStorage.setItem('savedCoupons', JSON.stringify(savedCoupons));
@@ -159,7 +152,6 @@ export default function App() {
       if (results[1].status === 'fulfilled') setCategories(results[1].value);
       if (results[2].status === 'fulfilled') setGroceryLinks(results[2].value);
       
-      // Log errors for debugging but don't crash the UI
       results.forEach((res, i) => {
         if (res.status === 'rejected') {
           console.error(`Service ${i} failed:`, res.reason);
@@ -186,56 +178,10 @@ export default function App() {
     }
   };
 
-  const handleScannedCoupon = (data: string) => {
-    try {
-      // Try to parse as JSON first
-      const parsed = JSON.parse(data);
-      if (parsed.store && parsed.offer) {
-        const newCoupon: Coupon = {
-          id: `scanned-${Date.now()}`,
-          store: parsed.store,
-          offer: parsed.offer,
-          description: parsed.description || "Scanned digital coupon",
-          category: parsed.category || "Scanned",
-          expiryDate: parsed.expiryDate || new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-          code: parsed.code || data.substring(0, 10),
-          requiresPrinting: parsed.requiresPrinting ?? false
-        };
-        setSavedCoupons(prev => {
-          if (prev.some(c => c.code === newCoupon.code)) return prev;
-          return [...prev, newCoupon];
-        });
-        setIsScannerOpen(false);
-        return;
-      }
-    } catch (e) {
-      // Not JSON, handle as raw code
-    }
-
-    // Fallback: Create a generic coupon from the scanned code
-    const genericCoupon: Coupon = {
-      id: `scanned-${Date.now()}`,
-      store: "Scanned Coupon",
-      offer: "Special Deal",
-      description: `Scanned code: ${data}`,
-      category: "Scanned",
-      expiryDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-      code: data,
-      requiresPrinting: false
-    };
-    
-    setSavedCoupons(prev => {
-      if (prev.some(c => c.code === genericCoupon.code)) return prev;
-      return [...prev, genericCoupon];
-    });
-    setIsScannerOpen(false);
-  };
-
   const filteredCoupons = (showSavedOnly ? savedCoupons : coupons).filter(coupon => {
     const matchesCategory = !selectedCategory || 
       coupon.category.toLowerCase().includes(selectedCategory.toLowerCase()) ||
       selectedCategory.toLowerCase().includes(coupon.category.toLowerCase());
-
     return matchesCategory;
   });
 
@@ -368,12 +314,12 @@ export default function App() {
             expiringSoon ? "text-red-600" : (coupon.requiresPrinting ? "text-orange-600" : "text-indigo-600")
           )}>
             {coupon.affiliateUrl ? (
-  <a href={coupon.affiliateUrl} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="flex items-center gap-1">
-    {coupon.requiresPrinting ? "Print Now" : "Use Now"} <ChevronRight size={16} />
-  </a>
-) : (
-  <>{coupon.requiresPrinting ? "Print Now" : "Use Now"} <ChevronRight size={16} /></>
-)}
+              <a href={coupon.affiliateUrl} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="flex items-center gap-1">
+                {coupon.requiresPrinting ? "Print Now" : "Use Now"} <ChevronRight size={16} />
+              </a>
+            ) : (
+              <>{coupon.requiresPrinting ? "Print Now" : "Use Now"} <ChevronRight size={16} /></>
+            )}
           </div>
         </div>
       </motion.div>
@@ -383,6 +329,7 @@ export default function App() {
   return (
     <div className="min-h-screen text-[#1A1A1A] font-sans relative">
       <LivelyBackground />
+
       {/* Header */}
       <header className="sticky top-0 z-30 bg-white/40 backdrop-blur-xl border-b border-white/20 px-4 py-4">
         <div className="max-w-2xl mx-auto flex flex-col gap-4">
@@ -393,15 +340,6 @@ export default function App() {
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setIsScannerOpen(true)}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold transition-all border bg-white/80 border-white text-indigo-600 hover:bg-indigo-50 shadow-sm"
-              >
-                <Scan size={14} />
-                <span>Scan</span>
-              </motion.button>
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -509,8 +447,9 @@ export default function App() {
       </header>
 
       {activePage === 'about' && <AboutPage onClose={() => setActivePage('deals')} />}
-{activePage === 'blog' && <BlogPage onClose={() => setActivePage('deals')} />}
-<main className="max-w-2xl mx-auto px-4 py-6 pb-24" style={{ display: activePage === 'deals' ? 'block' : 'none' }}>
+      {activePage === 'blog' && <BlogPage onClose={() => setActivePage('deals')} />}
+      <main className="max-w-2xl mx-auto px-4 py-6 pb-24" style={{ display: activePage === 'deals' ? 'block' : 'none' }}>
+
         {/* AI Categories */}
         <section className="mb-8">
           <div className="flex items-center justify-between mb-4">
@@ -637,7 +576,6 @@ export default function App() {
               </div>
               <span className="text-xs font-medium text-gray-400">{digitalCoupons.length} found</span>
             </div>
-
             <div className="space-y-4">
               {loading ? (
                 Array(2).fill(0).map((_, i) => (
@@ -666,7 +604,6 @@ export default function App() {
               </div>
               <span className="text-xs font-medium text-gray-400">{printableCoupons.length} found</span>
             </div>
-
             <div className="space-y-4">
               {loading ? (
                 Array(1).fill(0).map((_, i) => (
@@ -758,33 +695,33 @@ export default function App() {
                     isExpiringSoon(selectedCoupon.expiryDate) ? "text-red-600" : "text-indigo-600"
                   )}>{selectedCoupon.offer}</div>
                   <p className="text-gray-500 leading-relaxed">{selectedCoupon.description}</p>
-                <div className={cn(
-                  "mt-4 flex items-center justify-between text-sm",
-                  isExpiringSoon(selectedCoupon.expiryDate) ? "text-red-600" : "text-gray-400"
-                )}>
-                  <div className="flex items-center gap-2 font-bold">
-                    <Calendar size={16} className={isExpiringSoon(selectedCoupon.expiryDate) ? "animate-bounce" : ""} />
-                    <span>Expires: {selectedCoupon.expiryDate}</span>
+                  <div className={cn(
+                    "mt-4 flex items-center justify-between text-sm",
+                    isExpiringSoon(selectedCoupon.expiryDate) ? "text-red-600" : "text-gray-400"
+                  )}>
+                    <div className="flex items-center gap-2 font-bold">
+                      <Calendar size={16} className={isExpiringSoon(selectedCoupon.expiryDate) ? "animate-bounce" : ""} />
+                      <span>Expires: {selectedCoupon.expiryDate}</span>
+                    </div>
+                    {selectedCoupon.sourceUrl && (
+                      <a 
+                        href={selectedCoupon.sourceUrl} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1 text-indigo-600 hover:underline font-bold"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <ExternalLink size={14} />
+                        <span>Verify Deal</span>
+                      </a>
+                    )}
                   </div>
-                  {selectedCoupon.sourceUrl && (
-                    <a 
-                      href={selectedCoupon.sourceUrl} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-1 text-indigo-600 hover:underline font-bold"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <ExternalLink size={14} />
-                      <span>Verify Deal</span>
-                    </a>
-                  )}
                 </div>
-              </div>
 
-              <div className={cn(
-                "rounded-3xl p-6 mb-8 border mx-8",
-                selectedCoupon.requiresPrinting ? "bg-orange-50 border-orange-100" : "bg-indigo-50 border-indigo-100"
-              )}>
+                <div className={cn(
+                  "rounded-3xl p-6 mb-8 border",
+                  selectedCoupon.requiresPrinting ? "bg-orange-50 border-orange-100" : "bg-indigo-50 border-indigo-100"
+                )}>
                   <div className="flex items-center gap-3 mb-4">
                     {selectedCoupon.requiresPrinting ? (
                       <Printer className="text-orange-600" size={24} />
@@ -806,7 +743,6 @@ export default function App() {
                       ? "This coupon must be printed and presented at the store."
                       : "Show this code to the cashier at checkout. No printing required."}
                   </p>
-                  
                   <div className={cn(
                     "bg-white rounded-2xl p-6 flex flex-col items-center justify-center border-2 border-dashed",
                     selectedCoupon.requiresPrinting ? "border-orange-200" : "border-indigo-200"
@@ -814,16 +750,6 @@ export default function App() {
                     <div className="text-xs font-bold text-gray-400 uppercase tracking-[0.3em] mb-4">Coupon Code</div>
                     <div className="text-3xl font-mono font-black tracking-widest text-gray-900 mb-4">
                       {selectedCoupon.code}
-                    </div>
-                    {/* Simulated Barcode */}
-                    <div className="w-full h-16 flex gap-1 items-stretch">
-                      {Array(40).fill(0).map((_, i) => (
-                        <div 
-                          key={i} 
-                          className="bg-gray-900 flex-1" 
-                          style={{ width: `${Math.random() * 4 + 1}px`, opacity: Math.random() > 0.3 ? 1 : 0.2 }} 
-                        />
-                      ))}
                     </div>
                   </div>
                 </div>
@@ -849,106 +775,39 @@ export default function App() {
             </motion.div>
           </div>
         )}
-
-        {isScannerOpen && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-            <motion.div 
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-white rounded-3xl w-full max-w-md overflow-hidden shadow-2xl"
-            >
-              <div className="p-6 border-b flex items-center justify-between bg-indigo-50">
-                <div className="flex items-center gap-2">
-                  <QrCode className="text-indigo-600" />
-                  <h2 className="text-xl font-bold text-gray-900">Scan Coupon</h2>
-                </div>
-                <button 
-                  onClick={() => setIsScannerOpen(false)}
-                  className="p-2 hover:bg-white rounded-full transition-colors"
-                >
-                  <X size={20} />
-                </button>
-              </div>
-              
-              <div className="p-6">
-                <div id="reader" className="overflow-hidden rounded-2xl border-2 border-dashed border-indigo-200" />
-                
-                <div className="mt-6 text-center">
-                  <p className="text-sm text-gray-500">
-                    Point your camera at a coupon barcode or QR code to automatically save it.
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-            <ScannerInitializer onScan={handleScannedCoupon} />
-          </div>
-        )}
       </AnimatePresence>
 
-      {/* Footer Nav (Mobile Style) */}
-<nav className="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-lg border-t border-gray-100 px-4 py-3 flex justify-around items-center z-40">
-  <button 
-    onClick={() => { setActivePage('deals'); setShowSavedOnly(false); }}
-    className={cn("flex flex-col items-center gap-1", activePage === 'deals' && !showSavedOnly ? "text-indigo-600" : "text-gray-400")}
-  >
-    <Ticket size={22} />
-    <span className="text-[10px] font-bold uppercase tracking-wider">Deals</span>
-  </button>
-  <button 
-    onClick={() => { setActivePage('blog'); setShowSavedOnly(false); }}
-    className={cn("flex flex-col items-center gap-1", activePage === 'blog' ? "text-indigo-600" : "text-gray-400")}
-  >
-    <Newspaper size={22} />
-    <span className="text-[10px] font-bold uppercase tracking-wider">Tips</span>
-  </button>
-  <button 
-    onClick={() => setIsScannerOpen(true)}
-    className="flex flex-col items-center gap-1 text-indigo-600"
-  >
-    <div className="w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center text-white -mt-8 shadow-lg shadow-indigo-200 border-4 border-white">
-      <Scan size={24} />
-    </div>
-    <span className="text-[10px] font-bold uppercase tracking-wider">Scan</span>
-  </button>
-  <button 
-    onClick={() => { setActivePage('deals'); setShowSavedOnly(true); }}
-    className={cn("flex flex-col items-center gap-1", showSavedOnly ? "text-red-500" : "text-gray-400")}
-  >
-    <Heart size={22} fill={showSavedOnly ? "currentColor" : "none"} />
-    <span className="text-[10px] font-bold uppercase tracking-wider">Saved</span>
-  </button>
-  <button 
-    onClick={() => { setActivePage('about'); setShowSavedOnly(false); }}
-    className={cn("flex flex-col items-center gap-1", activePage === 'about' ? "text-indigo-600" : "text-gray-400")}
-  >
-    <Info size={22} />
-    <span className="text-[10px] font-bold uppercase tracking-wider">About</span>
-  </button>
-</nav>
+      {/* Footer Nav */}
+      <nav className="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-lg border-t border-gray-100 px-4 py-3 flex justify-around items-center z-40">
+        <button 
+          onClick={() => { setActivePage('deals'); setShowSavedOnly(false); }}
+          className={cn("flex flex-col items-center gap-1", activePage === 'deals' && !showSavedOnly ? "text-indigo-600" : "text-gray-400")}
+        >
+          <Ticket size={22} />
+          <span className="text-[10px] font-bold uppercase tracking-wider">Deals</span>
+        </button>
+        <button 
+          onClick={() => { setActivePage('blog'); setShowSavedOnly(false); }}
+          className={cn("flex flex-col items-center gap-1", activePage === 'blog' ? "text-indigo-600" : "text-gray-400")}
+        >
+          <Newspaper size={22} />
+          <span className="text-[10px] font-bold uppercase tracking-wider">Tips</span>
+        </button>
+        <button 
+          onClick={() => { setActivePage('deals'); setShowSavedOnly(true); }}
+          className={cn("flex flex-col items-center gap-1", showSavedOnly ? "text-red-500" : "text-gray-400")}
+        >
+          <Heart size={22} fill={showSavedOnly ? "currentColor" : "none"} />
+          <span className="text-[10px] font-bold uppercase tracking-wider">Saved</span>
+        </button>
+        <button 
+          onClick={() => { setActivePage('about'); setShowSavedOnly(false); }}
+          className={cn("flex flex-col items-center gap-1", activePage === 'about' ? "text-indigo-600" : "text-gray-400")}
+        >
+          <Info size={22} />
+          <span className="text-[10px] font-bold uppercase tracking-wider">About</span>
+        </button>
+      </nav>
     </div>
   );
 }
-
-const ScannerInitializer = ({ onScan }: { onScan: (data: string) => void }) => {
-  useEffect(() => {
-    const scanner = new Html5QrcodeScanner("reader", { 
-      fps: 10, 
-      qrbox: { width: 250, height: 250 },
-      aspectRatio: 1.0
-    }, false);
-
-    scanner.render((decodedText) => {
-      onScan(decodedText);
-      scanner.clear();
-    }, (error) => {
-      // console.warn(error);
-    });
-
-    return () => {
-      scanner.clear().catch(err => console.error("Scanner cleanup error", err));
-    };
-  }, [onScan]);
-
-  return null;
-};
