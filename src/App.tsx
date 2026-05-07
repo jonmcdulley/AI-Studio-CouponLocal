@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import AboutPage from './AboutPage';
+import BlogPage from './BlogPage';
 import { 
   Search, 
   MapPin, 
@@ -18,11 +20,33 @@ import {
   Bookmark,
   Scan,
   QrCode
+import { 
+  Search, 
+  MapPin, 
+  Tag, 
+  Calendar, 
+  ChevronRight, 
+  X, 
+  Loader2, 
+  Ticket,
+  Smartphone,
+  Printer,
+  Info,
+  Navigation,
+  ExternalLink,
+  BookOpen,
+  Heart,
+  Bookmark,
+  Scan,
+  QrCode,
+  Newspaper
 } from 'lucide-react';
 import { Html5QrcodeScanner } from 'html5-qrcode';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from './lib/utils';
 import { searchCoupons, getSuggestedCategories, reverseGeocode, getGroceryLinks, Coupon, GroceryLink } from './services/couponService';
+import AboutPage from './AboutPage';
+import BlogPage from './BlogPage';
 
 const LivelyBackground = () => {
   return (
@@ -47,6 +71,7 @@ const LivelyBackground = () => {
 };
 
 export default function App() {
+  const [activePage, setActivePage] = useState<'deals' | 'blog' | 'about'>('deals');
   const [location, setLocation] = useState<string>(() => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('savedLocation') || '';
@@ -502,7 +527,9 @@ export default function App() {
         </div>
       </header>
 
-      <main className="max-w-2xl mx-auto px-4 py-6 pb-24">
+      {activePage === 'about' && <AboutPage onClose={() => setActivePage('deals')} />}
+{activePage === 'blog' && <BlogPage onClose={() => setActivePage('deals')} />}
+<main className="max-w-2xl mx-auto px-4 py-6 pb-24" style={{ display: activePage === 'deals' ? 'block' : 'none' }}>
         {/* AI Categories */}
         <section className="mb-8">
           <div className="flex items-center justify-between mb-4">
@@ -879,35 +906,45 @@ export default function App() {
       </AnimatePresence>
 
       {/* Footer Nav (Mobile Style) */}
-      <nav className="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-lg border-t border-gray-100 px-6 py-3 flex justify-around items-center z-40 sm:hidden">
-        <button 
-          onClick={() => setShowSavedOnly(false)}
-          className={cn("flex flex-col items-center gap-1", !showSavedOnly ? "text-indigo-600" : "text-gray-400")}
-        >
-          <Ticket size={24} />
-          <span className="text-[10px] font-bold uppercase tracking-wider">Deals</span>
-        </button>
-        <button 
-          onClick={() => setIsScannerOpen(true)}
-          className="flex flex-col items-center gap-1 text-indigo-600"
-        >
-          <div className="w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center text-white -mt-8 shadow-lg shadow-indigo-200 border-4 border-white">
-            <Scan size={24} />
-          </div>
-          <span className="text-[10px] font-bold uppercase tracking-wider">Scan</span>
-        </button>
-        <button className="flex flex-col items-center gap-1 text-gray-400">
-          <Search size={24} />
-          <span className="text-[10px] font-bold uppercase tracking-wider">Search</span>
-        </button>
-        <button 
-          onClick={() => setShowSavedOnly(true)}
-          className={cn("flex flex-col items-center gap-1", showSavedOnly ? "text-red-500" : "text-gray-400")}
-        >
-          <Heart size={24} fill={showSavedOnly ? "currentColor" : "none"} />
-          <span className="text-[10px] font-bold uppercase tracking-wider">Saved</span>
-        </button>
-      </nav>
+<nav className="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-lg border-t border-gray-100 px-4 py-3 flex justify-around items-center z-40">
+  <button 
+    onClick={() => { setActivePage('deals'); setShowSavedOnly(false); }}
+    className={cn("flex flex-col items-center gap-1", activePage === 'deals' && !showSavedOnly ? "text-indigo-600" : "text-gray-400")}
+  >
+    <Ticket size={22} />
+    <span className="text-[10px] font-bold uppercase tracking-wider">Deals</span>
+  </button>
+  <button 
+    onClick={() => { setActivePage('blog'); setShowSavedOnly(false); }}
+    className={cn("flex flex-col items-center gap-1", activePage === 'blog' ? "text-indigo-600" : "text-gray-400")}
+  >
+    <Newspaper size={22} />
+    <span className="text-[10px] font-bold uppercase tracking-wider">Tips</span>
+  </button>
+  <button 
+    onClick={() => setIsScannerOpen(true)}
+    className="flex flex-col items-center gap-1 text-indigo-600"
+  >
+    <div className="w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center text-white -mt-8 shadow-lg shadow-indigo-200 border-4 border-white">
+      <Scan size={24} />
+    </div>
+    <span className="text-[10px] font-bold uppercase tracking-wider">Scan</span>
+  </button>
+  <button 
+    onClick={() => { setActivePage('deals'); setShowSavedOnly(true); }}
+    className={cn("flex flex-col items-center gap-1", showSavedOnly ? "text-red-500" : "text-gray-400")}
+  >
+    <Heart size={22} fill={showSavedOnly ? "currentColor" : "none"} />
+    <span className="text-[10px] font-bold uppercase tracking-wider">Saved</span>
+  </button>
+  <button 
+    onClick={() => { setActivePage('about'); setShowSavedOnly(false); }}
+    className={cn("flex flex-col items-center gap-1", activePage === 'about' ? "text-indigo-600" : "text-gray-400")}
+  >
+    <Info size={22} />
+    <span className="text-[10px] font-bold uppercase tracking-wider">About</span>
+  </button>
+</nav>
     </div>
   );
 }
