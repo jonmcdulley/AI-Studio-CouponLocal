@@ -19,25 +19,6 @@ import {
   Heart,
   Bookmark,
   Scan,
-  QrCode
-import { 
-  Search, 
-  MapPin, 
-  Tag, 
-  Calendar, 
-  ChevronRight, 
-  X, 
-  Loader2, 
-  Ticket,
-  Smartphone,
-  Printer,
-  Info,
-  Navigation,
-  ExternalLink,
-  BookOpen,
-  Heart,
-  Bookmark,
-  Scan,
   QrCode,
   Newspaper
 } from 'lucide-react';
