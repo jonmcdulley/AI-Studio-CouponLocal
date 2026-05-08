@@ -21,7 +21,55 @@ export interface GroceryLink {
 }
 
 const REAL_DEALS: Coupon[] = [
-  { id: "ia-ck-1", store: "Charles & Keith PH", offer: "Up to 3.5% Cashback", description: "Shop the latest bags, shoes & accessories.", category: "Fashion", expiryDate: "2026-12-31", code: "CK35", requiresPrinting: false, affiliateUrl: "https://invl.me/clnfk9t", logo: "https://www.google.com/s2/favicons?domain=charleskeith.com&sz=64" },
+{
+  id: "ia-jetpac-1",
+  store: "Jetpac Global",
+  offer: "Travel eSIM & Insurance",
+  description: "Stay connected anywhere with global eSIM data plans and travel insurance.",
+  category: "Travel",
+  expiryDate: "2026-12-31",
+  code: "JETPAC",
+  requiresPrinting: false,
+  affiliateUrl: "https://invl.me/clng029",
+  logo: "https://www.jetpacglobal.com/favicon.ico"
+},
+{
+  id: "ia-zalora-1",
+  store: "Zalora PH",
+  offer: "Up to 3.5% Cashback",
+  description: "Shop the latest fashion, shoes and accessories from top brands.",
+  category: "Fashion",
+  expiryDate: "2026-12-31",
+  code: "ZALORA",
+  requiresPrinting: false,
+  affiliateUrl: "https://invl.me/clng02c",
+  logo: "https://www.zalora.com.ph/favicon.ico"
+},
+{
+  id: "ia-stylevana-1",
+  store: "Stylevana",
+  offer: "K-Beauty & J-Beauty Deals",
+  description: "Discover Korean and Japanese beauty brands at great prices.",
+  category: "Beauty",
+  expiryDate: "2026-12-31",
+  code: "STYLEVANA",
+  requiresPrinting: false,
+  affiliateUrl: "https://miniurl.app/clng02d",
+  logo: "https://www.stylevana.com/favicon.ico"
+},
+{
+  id: "ia-klook-1",
+  store: "Klook Travel",
+  offer: "Up to 60% Off Weekend Stays",
+  description: "Book tours, activities and hotel stays across TW, TH, MY, PH & SG.",
+  category: "Travel",
+  expiryDate: "2026-12-31",
+  code: "KLOOK60",
+  requiresPrinting: false,
+  affiliateUrl: "https://invl.me/clng02e",
+  logo: "https://www.klook.com/favicon.ico"
+},  
+{ id: "ia-ck-1", store: "Charles & Keith PH", offer: "Up to 3.5% Cashback", description: "Shop the latest bags, shoes & accessories.", category: "Fashion", expiryDate: "2026-12-31", code: "CK35", requiresPrinting: false, affiliateUrl: "https://invl.me/clnfk9t", logo: "https://www.google.com/s2/favicons?domain=charleskeith.com&sz=64" },
   { id: "ia-byfood-1", store: "byFood", offer: "4.2% Commission", description: "Book food tours & cooking classes across Asia.", category: "Dining", expiryDate: "2026-12-31", code: "BYFOOD", requiresPrinting: false, affiliateUrl: "https://invl.us/clnfk95", logo: "https://www.google.com/s2/favicons?domain=byfood.com&sz=64" },
   { id: "ia-zen-1", store: "Zen Hotels", offer: "3.5% Commission", description: "Find great hotel deals across Asia.", category: "Travel", expiryDate: "2026-12-31", code: "ZENHOTEL", requiresPrinting: false, affiliateUrl: "https://invl.app/clnfk9k", logo: "https://www.google.com/s2/favicons?domain=zenhotels.com&sz=64" },
   { id: "ia-trainpal-1", store: "TrainPal", offer: "1.4% Commission", description: "Save on train tickets across Europe & Asia.", category: "Travel", expiryDate: "2026-12-31", code: "TRAINPAL", requiresPrinting: false, affiliateUrl: "https://invl.us/clnfk9q", logo: "https://www.google.com/s2/favicons?domain=trainpal.com&sz=64" },
