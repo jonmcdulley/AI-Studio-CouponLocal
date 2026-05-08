@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import ComparePage from "./ComparePage";
 import AboutPage from './AboutPage';
 import BlogPage from './BlogPage';
 import { 
@@ -47,7 +48,7 @@ const LivelyBackground = () => {
 };
 
 export default function App() {
-  const [activePage, setActivePage] = useState<'deals' | 'blog' | 'about'>('deals');
+  const [activePage, setActivePage] = useState<'deals' | 'blog' | 'about' | 'compare'>('deals');
   const [location, setLocation] = useState<string>(() => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('savedLocation') || '';
@@ -448,6 +449,7 @@ export default function App() {
 
       {activePage === 'about' && <AboutPage onClose={() => setActivePage('deals')} />}
       {activePage === 'blog' && <BlogPage onClose={() => setActivePage('deals')} />}
+      {activePage === 'compare' && <ComparePage />}
       <main className="max-w-2xl mx-auto px-4 py-6 pb-24" style={{ display: activePage === 'deals' ? 'block' : 'none' }}>
 
         {/* AI Categories */}
@@ -799,6 +801,13 @@ export default function App() {
         >
           <Heart size={22} fill={showSavedOnly ? "currentColor" : "none"} />
           <span className="text-[10px] font-bold uppercase tracking-wider">Saved</span>
+        </button>
+        <button 
+          onClick={() => { setActivePage('compare'); setShowSavedOnly(false); }}
+          className={cn("flex flex-col items-center gap-1", activePage === 'compare' ? "text-indigo-600" : "text-gray-400")}
+        >
+          <Tag size={22} />
+          <span className="text-[10px] font-bold uppercase tracking-wider">Compare</span>
         </button>
         <button 
           onClick={() => { setActivePage('about'); setShowSavedOnly(false); }}
