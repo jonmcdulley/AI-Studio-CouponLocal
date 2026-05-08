@@ -31,7 +31,7 @@ const REAL_DEALS: Coupon[] = [
   code: "JETPAC",
   requiresPrinting: false,
   affiliateUrl: "https://invl.me/clng029",
-  logo: "https://www.jetpacglobal.com/favicon.ico"
+  logo: "https://www.google.com/s2/favicons?domain=jetpacglobal.com&sz=64"
 },
 {
   id: "ia-zalora-1",
@@ -43,7 +43,7 @@ const REAL_DEALS: Coupon[] = [
   code: "ZALORA",
   requiresPrinting: false,
   affiliateUrl: "https://invl.me/clng02c",
-  logo: "https://www.zalora.com.ph/favicon.ico"
+  logo: "https://www.google.com/s2/favicons?domain=zalora.com.ph&sz=64"
 },
 {
   id: "ia-stylevana-1",
@@ -55,7 +55,7 @@ const REAL_DEALS: Coupon[] = [
   code: "STYLEVANA",
   requiresPrinting: false,
   affiliateUrl: "https://miniurl.app/clng02d",
-  logo: "https://www.stylevana.com/favicon.ico"
+  logo: "https://www.google.com/s2/favicons?domain=stylevana.com&sz=64"
 },
 {
   id: "ia-klook-1",
@@ -67,7 +67,7 @@ const REAL_DEALS: Coupon[] = [
   code: "KLOOK60",
   requiresPrinting: false,
   affiliateUrl: "https://invl.me/clng02e",
-  logo: "https://www.klook.com/favicon.ico"
+  logo: "https://www.google.com/s2/favicons?domain=klook.com&sz=64"
 },  
 { id: "ia-ck-1", store: "Charles & Keith PH", offer: "Up to 3.5% Cashback", description: "Shop the latest bags, shoes & accessories.", category: "Fashion", expiryDate: "2026-12-31", code: "CK35", requiresPrinting: false, affiliateUrl: "https://invl.me/clnfk9t", logo: "https://www.google.com/s2/favicons?domain=charleskeith.com&sz=64" },
   { id: "ia-byfood-1", store: "byFood", offer: "4.2% Commission", description: "Book food tours & cooking classes across Asia.", category: "Dining", expiryDate: "2026-12-31", code: "BYFOOD", requiresPrinting: false, affiliateUrl: "https://invl.us/clnfk95", logo: "https://www.google.com/s2/favicons?domain=byfood.com&sz=64" },
