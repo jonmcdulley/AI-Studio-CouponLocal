@@ -6,33 +6,35 @@ interface Deal {
   description: string;
   logo: string;
   affiliateUrl: string;
-  commission: number;
 }
 
-interface CompareData {
-  [key: string]: Deal[];
-}
+const logo = (domain: string) =>
+  `https://www.google.com/s2/favicons?domain=${domain}&sz=64`;
 
-const COMPARE_DATA: CompareData = {
+const COMPARE_DATA: Record<string, Deal[]> = {
   Travel: [
-    { store: "Airalo eSIM", offer: "Up to 14% OFF", description: "eSIMs for 200+ countries. No physical SIM needed.", logo: "https://www.google.com/s2/favicons?domain=airalo.com&sz=64", affiliateUrl: "https://invl.me/clnfka0", commission: 14 },
-    { store: "KKday Global", offer: "Up to 3.5% OFF", description: "Tours, activities and experiences across Asia.", logo: "https://www.google.com/s2/favicons?domain=kkday.com&sz=64", affiliateUrl: "https://invl.me/clnfk9w", commission: 3.5 },
-    { store: "Zen Hotels", offer: "3.5% Commission", description: "Great hotel deals across Asia.", logo: "https://www.google.com/s2/favicons?domain=zenhotels.com&sz=64", affiliateUrl: "https://invl.app/clnfk9k", commission: 3.5 },
-    { store: "Airpaz Global", offer: "0.98% Cashback", description: "Cheap flights worldwide on the Airpaz app.", logo: "https://www.google.com/s2/favicons?domain=airpaz.com&sz=64", affiliateUrl: "https://invl.me/clnfqhm", commission: 0.98 },
+    { store: "Airalo eSIM",   offer: "15% Off — Code WELCOME15",      description: "Buy eSIMs for 200+ countries. New users save 15% at checkout.",         logo: logo("airalo.com"),       affiliateUrl: "https://invl.me/clnfka0"  },
+    { store: "Klook Travel",  offer: "12% Off Hotels + 60% Off Tours", description: "Use code TRENTAHINKLOOKHOTELS for 12% off hotels and 60% off tours.",   logo: logo("klook.com"),        affiliateUrl: "https://invl.me/clng02e"  },
+    { store: "KKday Global",  offer: "Tours & Activities Worldwide",   description: "Book tours, day trips and experiences across Asia and beyond.",          logo: logo("kkday.com"),        affiliateUrl: "https://invl.me/clnfk9w"  },
+    { store: "Airpaz Global", offer: "Cheap Flights Worldwide",        description: "Search and book cheap flights worldwide on the Airpaz app.",             logo: logo("airpaz.com"),       affiliateUrl: "https://invl.me/clnfqhm"  },
+    { store: "Zen Hotels",    offer: "Best Hotel Deals in Asia",       description: "Compare and book great hotel deals across Asia.",                        logo: logo("zenhotels.com"),    affiliateUrl: "https://invl.app/clnfk9k" },
+    { store: "Jetpac Global", offer: "Global eSIM & Travel Insurance", description: "Stay connected anywhere with eSIM data plans and travel insurance.",     logo: logo("jetpacglobal.com"), affiliateUrl: "https://invl.me/clng029"  },
   ],
   Fashion: [
-    { store: "Shopee PH", offer: "2.8% Cashback", description: "Millions of products with cashback.", logo: "https://www.google.com/s2/favicons?domain=shopee.ph&sz=64", affiliateUrl: "https://invl.me/clnfk8z", commission: 2.8 },
-    { store: "Shein Global", offer: "Up to 60% OFF", description: "Trendy fashion at unbeatable prices.", logo: "https://www.google.com/s2/favicons?domain=shein.com&sz=64", affiliateUrl: "https://miniurl.app/clnfk9b", commission: 60 },
-    { store: "Charles & Keith PH", offer: "Up to 3.5% Cashback", description: "Latest bags, shoes and accessories.", logo: "https://www.google.com/s2/favicons?domain=charleskeith.com&sz=64", affiliateUrl: "https://invl.me/clnfk9t", commission: 3.5 },
-    { store: "Taobao", offer: "Up to 18.3% OFF", description: "Millions of products from China's largest marketplace.", logo: "https://www.google.com/s2/favicons?domain=taobao.com&sz=64", affiliateUrl: "https://invl.me/clnfk9p", commission: 18.3 },
+    { store: "Shein Global",   offer: "Up to 60% Off + 30% New Users", description: "New users: up to 60% off sitewide. Use code SHEINNEW for extra savings.", logo: logo("shein.com"),        affiliateUrl: "https://miniurl.app/clnfk9b" },
+    { store: "Zalora PH",      offer: "25% Off First App Order",        description: "New customers get 25% off first in-app purchase (min. spend ₱2,195).",   logo: logo("zalora.com.ph"),    affiliateUrl: "https://invl.me/clng084"     },
+    { store: "Shopee PH",      offer: "Daily Deals & Flash Sales",      description: "Millions of products with daily vouchers and flash sales.",               logo: logo("shopee.ph"),        affiliateUrl: "https://invl.me/clng080"     },
+    { store: "Taobao",         offer: "Up to 18% Off Selected Items",   description: "Shop millions of products from China's largest marketplace.",             logo: logo("taobao.com"),       affiliateUrl: "https://invl.me/clnfk9p"     },
+    { store: "Charles & Keith",offer: "New Arrivals — Bags & Shoes",    description: "Shop the latest bags, shoes and accessories from Charles & Keith PH.",   logo: logo("charleskeith.com"), affiliateUrl: "https://invl.me/clnfk9t"     },
   ],
   Beauty: [
-    { store: "Sephora PH", offer: "Up to 5.6% Cashback", description: "Premium beauty, skincare and makeup.", logo: "https://www.google.com/s2/favicons?domain=sephora.ph&sz=64", affiliateUrl: "https://invl.me/clnfka2", commission: 5.6 },
-    { store: "Papique", offer: "7% Commission", description: "Premium beauty and skincare products.", logo: "https://www.google.com/s2/favicons?domain=papique.com&sz=64", affiliateUrl: "https://invl.us/clnfqhf", commission: 7 },
+    { store: "Sephora PH",  offer: "Top Beauty Brands & Skincare",  description: "Shop premium beauty, skincare and makeup from the world's top brands.", logo: logo("sephora.ph"),    affiliateUrl: "https://invl.me/clnfka2"      },
+    { store: "Papique",     offer: "Premium Beauty & Skincare",     description: "Curated beauty and skincare products delivered to your door.",           logo: logo("papique.com"),   affiliateUrl: "https://invl.us/clnfqhf"      },
+    { store: "Stylevana",   offer: "K-Beauty & J-Beauty Deals",     description: "Shop Korean and Japanese beauty brands at great prices.",               logo: logo("stylevana.com"), affiliateUrl: "https://miniurl.app/clng02d"  },
   ],
 };
 
-const ALL_DEALS: Deal[] = Object.values(COMPARE_DATA).flat();
+const ALL_DEALS = Object.values(COMPARE_DATA).flat();
 
 function DealCard({ deal, rank }: { deal: Deal; rank?: number }) {
   return (
@@ -58,7 +60,7 @@ function DealCard({ deal, rank }: { deal: Deal; rank?: number }) {
         <p className="text-gray-500 text-xs leading-relaxed mb-4">{deal.description}</p>
       </div>
       
-        <a href={deal.affiliateUrl}
+        href={deal.affiliateUrl}
         target="_blank"
         rel="noopener noreferrer"
         className="block text-center bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2.5 rounded-xl text-sm transition-colors"
@@ -81,10 +83,10 @@ export default function ComparePage() {
       )
     : [];
 
-  const categoryIcons: { [key: string]: string } = {
-    Travel: "Travel",
-    Fashion: "Fashion",
-    Beauty: "Beauty",
+  const categoryIcons: Record<string, string> = {
+    Travel: "✈️",
+    Fashion: "👗",
+    Beauty: "💄",
   };
 
   return (
@@ -96,6 +98,7 @@ export default function ComparePage() {
           <p className="text-gray-500">Find the best deal across multiple stores before you buy</p>
         </div>
 
+        {/* Search */}
         <div className="relative mb-8">
           <input
             type="text"
@@ -118,8 +121,8 @@ export default function ComparePage() {
           <div className="mb-10">
             <h2 className="text-lg font-semibold text-gray-700 mb-4">
               {searchResults.length > 0
-                ? searchResults.length + " results for " + search
-                : "No results for " + search}
+                ? `${searchResults.length} results for "${search}"`
+                : `No results for "${search}"`}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {searchResults.map((deal, i) => (
@@ -129,6 +132,7 @@ export default function ComparePage() {
           </div>
         ) : (
           <>
+            {/* Category Tabs */}
             <div className="flex gap-3 mb-6 flex-wrap">
               {Object.keys(COMPARE_DATA).map((cat) => (
                 <button
@@ -146,13 +150,11 @@ export default function ComparePage() {
               ))}
             </div>
 
+            {/* Deal Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {COMPARE_DATA[activeCategory]
-                .slice()
-                .sort((a, b) => b.commission - a.commission)
-                .map((deal, i) => (
-                  <DealCard key={i} deal={deal} rank={i + 1} />
-                ))}
+              {COMPARE_DATA[activeCategory].map((deal, i) => (
+                <DealCard key={i} deal={deal} rank={i + 1} />
+              ))}
             </div>
           </>
         )}
