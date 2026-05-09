@@ -453,8 +453,8 @@ export default function App() {
       <main className="max-w-2xl mx-auto px-4 py-6 pb-24" style={{ display: activePage === 'deals' ? 'block' : 'none' }}>
 
         {/* AI Categories */}
-        <section className="mb-8">
-          <div className="flex items-center justify-between mb-4">
+        <section className="mb-8 -mx-4">
+          <div className="flex items-center justify-between mb-4 px-4">
             <h2 className="text-sm font-bold uppercase tracking-wider text-gray-400">Browse Categories</h2>
             {selectedCategory && (
               <button 
@@ -465,7 +465,7 @@ export default function App() {
               </button>
             )}
           </div>
-          <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
+          <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar scroll-smooth px-4">
             {loading ? (
               Array(5).fill(0).map((_, i) => (
                 <div key={i} className="h-10 w-24 bg-white/40 backdrop-blur-sm animate-pulse rounded-full shrink-0 border border-white/20" />
@@ -594,35 +594,6 @@ export default function App() {
               )}
             </div>
           </section>
-
-          {/* Printable Coupons */}
-          <section>
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-2">
-                <Printer size={18} className="text-orange-600" />
-                <h2 className="text-sm font-bold uppercase tracking-wider text-gray-400">
-                  {selectedCategory ? `${selectedCategory} Printable Deals` : 'Printable Coupons'}
-                </h2>
-              </div>
-              <span className="text-xs font-medium text-gray-400">{printableCoupons.length} found</span>
-            </div>
-            <div className="space-y-4">
-              {loading ? (
-                Array(1).fill(0).map((_, i) => (
-                  <div key={i} className="h-48 bg-gray-200 animate-pulse rounded-3xl" />
-                ))
-              ) : printableCoupons.length > 0 ? (
-                printableCoupons.map((coupon) => (
-                  <CouponCard key={coupon.id} coupon={coupon} />
-                ))
-              ) : !loading && (
-                <div className="text-center py-10 bg-gray-50 rounded-3xl border border-dashed border-gray-200">
-                  <p className="text-gray-500 text-sm">No printable coupons found.</p>
-                </div>
-              )}
-            </div>
-          </section>
-
           {!loading && coupons.length === 0 && location && (
             <div className="text-center py-20 bg-gray-50 rounded-3xl border border-dashed border-gray-200">
               <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 text-gray-400">
