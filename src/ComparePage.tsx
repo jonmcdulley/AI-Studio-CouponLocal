@@ -58,7 +58,7 @@ function DealCard({ deal, rank }: { deal: Deal; rank?: number }) {
         <p className="text-gray-500 text-xs leading-relaxed mb-4">{deal.description}</p>
       </div>
       
-        href={deal.affiliateUrl}
+        <a href={deal.affiliateUrl}
         target="_blank"
         rel="noopener noreferrer"
         className="block text-center bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2.5 rounded-xl text-sm transition-colors"
