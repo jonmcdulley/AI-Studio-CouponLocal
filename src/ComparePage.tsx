@@ -134,7 +134,7 @@ function DealCard({ deal, rank }: { deal: any; rank?: number }) {
         rel="noopener noreferrer"
         className="block text-center bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2.5 rounded-xl text-sm transition-colors"
       >
-        Get Deal →
+        Get Deal »
       </a>
     </div>
   );
