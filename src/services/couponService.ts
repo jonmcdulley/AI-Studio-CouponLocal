@@ -20,97 +20,98 @@ export interface GroceryLink {
   logo?: string;
 }
 
+// ─── Helper ───────────────────────────────────────────────────────────────────
+const logo = (domain: string) =>
+  `https://www.google.com/s2/favicons?domain=${domain}&sz=64`;
+
+const deal = (
+  id: string,
+  store: string,
+  offer: string,
+  description: string,
+  category: string,
+  code: string,
+  affiliateUrl: string,
+  domain: string,
+  expiryDate = "2026-12-31"
+): Coupon => ({
+  id,
+  store,
+  offer,
+  description,
+  category,
+  expiryDate,
+  code,
+  requiresPrinting: false,
+  affiliateUrl,
+  logo: logo(domain),
+});
+
+// ─── Deals ────────────────────────────────────────────────────────────────────
 const REAL_DEALS: Coupon[] = [
-{
-  id: "ia-jetpac-1",
-  store: "Jetpac Global",
-  offer: "Travel eSIM & Insurance",
-  description: "Stay connected anywhere with global eSIM data plans and travel insurance.",
-  category: "Travel",
-  expiryDate: "2026-12-31",
-  code: "JETPAC",
-  requiresPrinting: false,
-  affiliateUrl: "https://invl.me/clng029",
-  logo: "https://www.google.com/s2/favicons?domain=jetpacglobal.com&sz=64"
-},
-{
-  id: "ia-zalora-1",
-  store: "Zalora PH",
-  offer: offer: "25% Off First App Order",
-description: "New customers get 25% off first in-app purchase (min. spend ₱2,195). Shop fashion, shoes & accessories.",
-  description: "Shop the latest fashion, shoes and accessories from top brands.",
-  category: "Fashion",
-  expiryDate: "2026-12-31",
-  code: "APP25",
-  requiresPrinting: false,
-  affiliateUrl: "https://invl.me/clng084",
-  logo: "https://www.google.com/s2/favicons?domain=zalora.com.ph&sz=64"
-},
-{
-  id: "ia-stylevana-1",
-  store: "Stylevana",
-  offer: "K-Beauty & J-Beauty Deals",
-  description: "Discover Korean and Japanese beauty brands at great prices.",
-  category: "Beauty",
-  expiryDate: "2026-12-31",
-  code: "STYLEVANA",
-  requiresPrinting: false,
-  affiliateUrl: "https://miniurl.app/clng02d",
-  logo: "https://www.google.com/s2/favicons?domain=stylevana.com&sz=64"
-},
-{
-  id: "ia-klook-1",
-  store: "Klook Travel",
-  offer: "Up to 60% Off Weekend Stays",
-  description: "Book tours, activities and hotel stays across TW, TH, MY, PH & SG.",
-  category: "Travel",
-  expiryDate: "2026-12-31",
-  code: "KLOOK60",
-  requiresPrinting: false,
-  affiliateUrl: "https://invl.me/clng02e",
-  logo: "https://www.google.com/s2/favicons?domain=klook.com&sz=64"
-},  
-{ id: "ia-ck-1", store: "Charles & Keith PH", offer: "Up to 6% Cashback", description: "Shop the latest bags, shoes & accessories.", category: "Fashion", expiryDate: "2026-12-31", code: "CK35", requiresPrinting: false, affiliateUrl: "https://invl.me/clnfk9t", logo: "https://www.google.com/s2/favicons?domain=charleskeith.com&sz=64" },
-  { id: "ia-byfood-1", store: "byFood", offer: "4.2% Commission", description: "Book food tours & cooking classes across Asia.", category: "Dining", expiryDate: "2026-12-31", code: "BYFOOD", requiresPrinting: false, affiliateUrl: "https://invl.us/clnfk95", logo: "https://www.google.com/s2/favicons?domain=byfood.com&sz=64" },
-  { id: "ia-zen-1", store: "Zen Hotels", offer: "3.5% Commission", description: "Find great hotel deals across Asia.", category: "Travel", expiryDate: "2026-12-31", code: "ZENHOTEL", requiresPrinting: false, affiliateUrl: "https://invl.app/clnfk9k", logo: "https://www.google.com/s2/favicons?domain=zenhotels.com&sz=64" },
-  { id: "ia-trainpal-1", store: "TrainPal", offer: "1.4% Commission", description: "Save on train tickets across Europe & Asia.", category: "Travel", expiryDate: "2026-12-31", code: "TRAINPAL", requiresPrinting: false, affiliateUrl: "https://invl.us/clnfk9q", logo: "https://www.google.com/s2/favicons?domain=trainpal.com&sz=64" },
-  { id: "ia-flower-1", store: "FlowerAdvisor PH", offer: "6% Commission", description: "Send flowers & gifts anywhere in the Philippines.", category: "Lifestyle", expiryDate: "2026-12-31", code: "FLOWER6", requiresPrinting: false, affiliateUrl: "https://invl.me/clnfk9x", logo: "https://www.google.com/s2/favicons?domain=floweradvisor.com&sz=64" },
-  { id: "ia-shopee-1", store: "Shopee PH", offer: "2.8% Cashback", description: "Shop millions of products on Shopee Philippines with cashback.", category: "Fashion", expiryDate: "2026-12-31", code: "SHOPEEPH", requiresPrinting: false, affiliateUrl: "https://invl.me/clng080", logo: "https://www.google.com/s2/favicons?domain=shopee.ph&sz=64" },
-  { id: "ia-banggood-1", store: "Banggood Global", offer: "Up to 21% OFF", description: "Gadgets, electronics and more at huge discounts worldwide.", category: "Tech", expiryDate: "2026-12-31", code: "BANGGOOD21", requiresPrinting: false, affiliateUrl: "https://invl.me/clnfk96", logo: "https://www.google.com/s2/favicons?domain=banggood.com&sz=64" },
-  { id: "ia-wegic-1", store: "Wegic AI", offer: "Up to 31.5% OFF", description: "AI-powered website builder. Create stunning sites in minutes.", category: "Tech", expiryDate: "2026-12-31", code: "WEGIC31", requiresPrinting: false, affiliateUrl: "https://invl.us/clnfk98", logo: "https://www.google.com/s2/favicons?domain=wegic.ai&sz=64" },
-  { id: "ia-sider-1", store: "Sider AI", offer: "Up to 49% OFF", description: "AI assistant for browsing, writing and productivity.", category: "Tech", expiryDate: "2026-12-31", code: "SIDER49", requiresPrinting: false, affiliateUrl: "https://invl.me/clnfk9a", logo: "https://www.google.com/s2/favicons?domain=sider.ai&sz=64" },
-  { id: "ia-shein-1", store: "Shein Global", offer: "Up to 60% OFF", description: "Trendy fashion at unbeatable prices. Up to 60% off exclusive deals.", category: "Fashion", expiryDate: "2026-12-31", code: "SHEIN60", requiresPrinting: false, affiliateUrl: "https://miniurl.app/clnfk9b", logo: "https://www.google.com/s2/favicons?domain=shein.com&sz=64" },
-  { id: "ia-udemy-1", store: "Udemy", offer: "Up to 14% OFF", description: "Learn anything with online courses from top instructors worldwide.", category: "Education", expiryDate: "2026-12-31", code: "UDEMY14", requiresPrinting: false, affiliateUrl: "https://invl.me/clnfk9h", logo: "https://www.google.com/s2/favicons?domain=udemy.com&sz=64" },
-  { id: "ia-wps-1", store: "WPS Software", offer: "Up to 49% OFF", description: "Office suite alternative with Writer, Spreadsheet & Presentation.", category: "Tech", expiryDate: "2027-06-16", code: "WPS49", requiresPrinting: false, affiliateUrl: "https://invl.app/clnfk9n", logo: "https://www.google.com/s2/favicons?domain=wps.com&sz=64" },
-  { id: "ia-taobao-1", store: "Taobao", offer: "Up to 18.3% OFF", description: "Shop millions of products from China's largest marketplace.", category: "Fashion", expiryDate: "2026-12-31", code: "TAOBAO18", requiresPrinting: false, affiliateUrl: "https://invl.me/clnfk9p", logo: "https://www.google.com/s2/favicons?domain=taobao.com&sz=64" },
-  { id: "ia-protonvpn-1", store: "Proton VPN", offer: "Up to 70% OFF", description: "Secure your internet with the world's most trusted VPN service.", category: "Tech", expiryDate: "2026-12-31", code: "PROTON70", requiresPrinting: false, affiliateUrl: "https://invl.me/clnfk9v", logo: "https://www.google.com/s2/favicons?domain=protonvpn.com&sz=64" },
-  { id: "ia-kkday-1", store: "KKday Global", offer: "Up to 3.5% OFF", description: "Book tours, activities and experiences across Asia and worldwide.", category: "Travel", expiryDate: "2026-12-31", code: "KKDAY35", requiresPrinting: false, affiliateUrl: "https://invl.me/clnfk9w", logo: "https://www.google.com/s2/favicons?domain=kkday.com&sz=64" },
-  { id: "ia-bernardelli-1", store: "Bernardelli Store", offer: "5.6% Commission", description: "Premium Italian fashion and lifestyle products worldwide.", category: "Fashion", expiryDate: "2026-12-31", code: "BERN56", requiresPrinting: false, affiliateUrl: "https://invl.me/clnfk9z", logo: "https://www.google.com/s2/favicons?domain=bernardelli.com&sz=64" },
-  { id: "ia-airalo-1", store: "Airalo eSIM", offer: "15% OFF + Up to 14% Affiliate Cashback",
-description: "New users get 15% off with code WELCOME15. Buy eSIMs for travel in 200+ countries.", category: "Travel", expiryDate: "2026-12-31", code: "WELCOME15", requiresPrinting: false, affiliateUrl: "https://invl.me/clnfka0", logo: "https://www.google.com/s2/favicons?domain=airalo.com&sz=64" },
-  { id: "ia-sephora-1", store: "Sephora PH", offer: "Up to 5.6% Cashback", description: "Shop premium beauty, skincare and makeup from top brands.", category: "Beauty", expiryDate: "2026-12-31", code: "SEPHORA56", requiresPrinting: false, affiliateUrl: "https://invl.me/clnfka2", logo: "https://www.google.com/s2/favicons?domain=sephora.ph&sz=64" },
-  { id: "ia-papique-1", store: "Papique", offer: "7% Commission", description: "Discover premium beauty and skincare products. Earn cashback on every purchase.", category: "Beauty", expiryDate: "2026-12-31", code: "PAPIQUE7", requiresPrinting: false, affiliateUrl: "https://invl.us/clnfqhf", logo: "https://www.google.com/s2/favicons?domain=papique.com&sz=64" },
-  { id: "ia-airpaz-1", store: "Airpaz Global", offer: "0.98% Cashback", description: "Find the perfect flight deal for your trip. Book cheap flights worldwide on the Airpaz app.", category: "Travel", expiryDate: "2026-12-31", code: "AIRPAZ", requiresPrinting: false, affiliateUrl: "https://invl.me/clnfqhm", logo: "https://www.google.com/s2/favicons?domain=airpaz.com&sz=64" },
+  // Travel
+  deal("ia-airalo-1",   "Airalo eSIM",      "15% OFF + Up to 14% Cashback",  "New users get 15% off with code WELCOME15. Buy eSIMs for travel in 200+ countries.",          "Travel",    "WELCOME15",             "https://invl.me/clnfka0",   "airalo.com"),
+  deal("ia-klook-1",    "Klook Travel",     "12% Off Hotels + 60% Off Tours", "Use code TRENTAHINKLOOKHOTELS for 12% off hotels. Up to 60% off tours and activities.",        "Travel",    "TRENTAHINKLOOKHOTELS",  "https://invl.me/clng02e",   "klook.com"),
+  deal("ia-jetpac-1",   "Jetpac Global",    "Travel eSIM & Insurance",        "Stay connected anywhere with global eSIM data plans and travel insurance.",                    "Travel",    "JETPAC",                "https://invl.me/clng029",   "jetpacglobal.com"),
+  deal("ia-zen-1",      "Zen Hotels",       "3.5% Cashback",                  "Find great hotel deals across Asia.",                                                          "Travel",    "ZENHOTEL",              "https://invl.app/clnfk9k",  "zenhotels.com"),
+  deal("ia-kkday-1",    "KKday Global",     "Up to 3.5% OFF",                 "Book tours, activities and experiences across Asia and worldwide.",                            "Travel",    "KKDAY35",               "https://invl.me/clnfk9w",   "kkday.com"),
+  deal("ia-trainpal-1", "TrainPal",         "1.4% Cashback",                  "Save on train tickets across Europe and Asia.",                                                "Travel",    "TRAINPAL",              "https://invl.us/clnfk9q",   "trainpal.com"),
+  deal("ia-airpaz-1",   "Airpaz Global",    "0.98% Cashback",                 "Book cheap flights worldwide on the Airpaz app.",                                              "Travel",    "AIRPAZ",                "https://invl.me/clnfqhm",   "airpaz.com"),
+
+  // Fashion
+  deal("ia-shein-1",    "Shein Global",     "Up to 60% OFF + Extra 30% New Users", "New users get up to 60% off. Use code SHEINNEW for extra savings at checkout.",          "Fashion",   "SHEINNEW",              "https://miniurl.app/clnfk9b","shein.com"),
+  deal("ia-zalora-1",   "Zalora PH",        "25% Off First App Order",        "New customers get 25% off first in-app purchase (min. spend ₱2,195). Top fashion brands.",    "Fashion",   "APP25",                 "https://invl.me/clng084",   "zalora.com.ph"),
+  deal("ia-shopee-1",   "Shopee PH",        "2.8% Cashback",                  "Shop millions of products on Shopee Philippines with cashback on every order.",               "Fashion",   "SHOPEEPH",              "https://invl.me/clng080",   "shopee.ph"),
+  deal("ia-taobao-1",   "Taobao",           "Up to 18.3% OFF",                "Shop millions of products from China's largest marketplace.",                                  "Fashion",   "TAOBAO18",              "https://invl.me/clnfk9p",   "taobao.com"),
+  deal("ia-ck-1",       "Charles & Keith",  "Up to 6% Cashback",              "Shop the latest bags, shoes and accessories from Charles & Keith.",                           "Fashion",   "CK6",                   "https://invl.me/clnfk9t",   "charleskeith.com"),
+  deal("ia-bernardelli-1","Bernardelli",    "5.6% Cashback",                  "Premium Italian fashion and lifestyle products worldwide.",                                    "Fashion",   "BERN56",                "https://invl.me/clnfk9z",   "bernardelli.com"),
+
+  // Beauty
+  deal("ia-sephora-1",  "Sephora PH",       "Up to 5.6% Cashback",            "Shop premium beauty, skincare and makeup from top brands.",                                   "Beauty",    "SEPHORA56",             "https://invl.me/clnfka2",   "sephora.ph"),
+  deal("ia-papique-1",  "Papique",          "7% Cashback",                    "Discover premium beauty and skincare products with cashback on every purchase.",              "Beauty",    "PAPIQUE7",              "https://invl.us/clnfqhf",   "papique.com"),
+  deal("ia-stylevana-1","Stylevana",        "K-Beauty & J-Beauty Deals",      "Discover Korean and Japanese beauty brands at great prices.",                                  "Beauty",    "STYLEVANA",             "https://miniurl.app/clng02d","stylevana.com"),
+
+  // Tech
+  deal("ia-protonvpn-1","Proton VPN",       "Up to 70% OFF",                  "Use code VPNINTROPRICE2025 at checkout. The world's most trusted VPN service.",               "Tech",      "VPNINTROPRICE2025",     "https://invl.me/clnfk9v",   "protonvpn.com"),
+  deal("ia-banggood-1", "Banggood Global",  "Up to 21% OFF",                  "Gadgets, electronics and more at huge discounts worldwide.",                                   "Tech",      "BANGGOOD21",            "https://invl.me/clnfk96",   "banggood.com"),
+  deal("ia-wegic-1",    "Wegic AI",         "Up to 31.5% OFF",                "AI-powered website builder. Create stunning sites in minutes.",                                "Tech",      "WEGIC31",               "https://invl.us/clnfk98",   "wegic.ai"),
+  deal("ia-sider-1",    "Sider AI",         "Up to 49% OFF",                  "AI assistant for browsing, writing and productivity.",                                         "Tech",      "SIDER49",               "https://invl.me/clnfk9a",   "sider.ai"),
+  deal("ia-wps-1",      "WPS Software",     "Up to 49% OFF",                  "Office suite alternative with Writer, Spreadsheet and Presentation tools.",                   "Tech",      "WPS49",                 "https://invl.app/clnfk9n",  "wps.com", "2027-06-16"),
+
+  // Education
+  deal("ia-udemy-1",    "Udemy",            "Up to 14% OFF",                  "Learn anything with online courses from top instructors worldwide.",                           "Education", "UDEMY14",               "https://invl.me/clnfk9h",   "udemy.com"),
+
+  // Dining
+  deal("ia-byfood-1",   "byFood",           "4.2% Cashback",                  "Book food tours and cooking classes across Asia.",                                             "Dining",    "BYFOOD",                "https://invl.us/clnfk95",   "byfood.com"),
+
+  // Lifestyle
+  deal("ia-flower-1",   "FlowerAdvisor PH", "6% Cashback",                    "Send flowers and gifts anywhere in the Philippines.",                                          "Lifestyle", "FLOWER6",               "https://invl.me/clnfk9x",   "floweradvisor.com"),
 ];
 
-export async function searchCoupons(location: string, query: string = ""): Promise<Coupon[]> {
+// ─── Exports ──────────────────────────────────────────────────────────────────
+export async function searchCoupons(location: string, query = ""): Promise<Coupon[]> {
   const q = (query + " " + location).toLowerCase();
-  let results = REAL_DEALS.filter(coupon => {
-    if (!query) return true;
-    return coupon.store.toLowerCase().includes(q) || coupon.category.toLowerCase().includes(q) || coupon.description.toLowerCase().includes(q);
-  });
-  if (results.length === 0) results = REAL_DEALS;
   const today = new Date().toISOString().split("T")[0];
-  return results.filter(c => c.expiryDate >= today);
+  const active = REAL_DEALS.filter(c => c.expiryDate >= today);
+  if (!query) return active;
+  const filtered = active.filter(c =>
+    c.store.toLowerCase().includes(q) ||
+    c.category.toLowerCase().includes(q) ||
+    c.description.toLowerCase().includes(q)
+  );
+  return filtered.length > 0 ? filtered : active;
 }
 
 export async function getSuggestedCategories(_location: string): Promise<string[]> {
-  return ["Travel", "Fashion", "Tech", "Dining", "Entertainment", "Beauty", "Education"];
+  return ["Travel", "Fashion", "Tech", "Beauty", "Dining", "Education", "Lifestyle"];
 }
 
 export async function reverseGeocode(lat: number, lng: number): Promise<string> {
   try {
-    const res = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`, { headers: { "Accept-Language": "en" } });
+    const res = await fetch(
+      `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`,
+      { headers: { "Accept-Language": "en" } }
+    );
     const data = await res.json();
     const city = data.address?.city || data.address?.town || data.address?.village || data.address?.county || "";
     const country = data.address?.country || "";
@@ -122,9 +123,9 @@ export async function reverseGeocode(lat: number, lng: number): Promise<string> 
 
 export async function getGroceryLinks(_location: string): Promise<GroceryLink[]> {
   return [
-    { name: "Shopee Vouchers", url: "https://invl.me/clng080", type: "coupon", description: "Daily vouchers and flash deals on Shopee Philippines.", logo: "https://www.google.com/s2/favicons?domain=shopee.ph&sz=64" },
-    { name: "Klook Activities", url: "https://invl.me/clng02e", type: "flyer", description: "Discounted tours, activities and travel experiences.", logo: "https://www.google.com/s2/favicons?domain=klook.com&sz=64" },
-    { name: "Zalora Sale", url: "https://invl.me/clng084", type: "flyer", description: "Fashion deals and seasonal sales across top brands.", logo: "https://www.google.com/s2/favicons?domain=zalora.com.ph&sz=64" },
-    { name: "Airalo eSIM", url: "https://invl.me/clnfka0", type: "coupon", description: "Buy eSIMs for travel in 200+ countries. No physical SIM needed.", logo: "https://www.google.com/s2/favicons?domain=airalo.com&sz=64" },
+    { name: "Shopee Vouchers",  url: "https://invl.me/clng080",  type: "coupon", description: "Daily vouchers and flash deals on Shopee Philippines.",        logo: logo("shopee.ph") },
+    { name: "Klook Activities", url: "https://invl.me/clng02e",  type: "flyer",  description: "Discounted tours, activities and travel experiences.",           logo: logo("klook.com") },
+    { name: "Zalora Sale",      url: "https://invl.me/clng084",  type: "flyer",  description: "Fashion deals and seasonal sales across top brands.",            logo: logo("zalora.com.ph") },
+    { name: "Airalo eSIM",      url: "https://invl.me/clnfka0",  type: "coupon", description: "Buy eSIMs for travel in 200+ countries. No physical SIM needed.", logo: logo("airalo.com") },
   ];
 }
