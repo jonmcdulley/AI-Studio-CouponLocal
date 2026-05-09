@@ -42,7 +42,7 @@ const REAL_DEALS: Coupon[] = [
   expiryDate: "2026-12-31",
   code: "ZALORA",
   requiresPrinting: false,
-  affiliateUrl: "https://invl.me/clng02c",
+  affiliateUrl: "https://invl.me/clng084",
   logo: "https://www.google.com/s2/favicons?domain=zalora.com.ph&sz=64"
 },
 {
@@ -69,12 +69,12 @@ const REAL_DEALS: Coupon[] = [
   affiliateUrl: "https://invl.me/clng02e",
   logo: "https://www.google.com/s2/favicons?domain=klook.com&sz=64"
 },  
-{ id: "ia-ck-1", store: "Charles & Keith PH", offer: "Up to 3.5% Cashback", description: "Shop the latest bags, shoes & accessories.", category: "Fashion", expiryDate: "2026-12-31", code: "CK35", requiresPrinting: false, affiliateUrl: "https://invl.me/clnfk9t", logo: "https://www.google.com/s2/favicons?domain=charleskeith.com&sz=64" },
+{ id: "ia-ck-1", store: "Charles & Keith PH", offer: "Up to 6% Cashback", description: "Shop the latest bags, shoes & accessories.", category: "Fashion", expiryDate: "2026-12-31", code: "CK35", requiresPrinting: false, affiliateUrl: "https://invl.me/clnfk9t", logo: "https://www.google.com/s2/favicons?domain=charleskeith.com&sz=64" },
   { id: "ia-byfood-1", store: "byFood", offer: "4.2% Commission", description: "Book food tours & cooking classes across Asia.", category: "Dining", expiryDate: "2026-12-31", code: "BYFOOD", requiresPrinting: false, affiliateUrl: "https://invl.us/clnfk95", logo: "https://www.google.com/s2/favicons?domain=byfood.com&sz=64" },
   { id: "ia-zen-1", store: "Zen Hotels", offer: "3.5% Commission", description: "Find great hotel deals across Asia.", category: "Travel", expiryDate: "2026-12-31", code: "ZENHOTEL", requiresPrinting: false, affiliateUrl: "https://invl.app/clnfk9k", logo: "https://www.google.com/s2/favicons?domain=zenhotels.com&sz=64" },
   { id: "ia-trainpal-1", store: "TrainPal", offer: "1.4% Commission", description: "Save on train tickets across Europe & Asia.", category: "Travel", expiryDate: "2026-12-31", code: "TRAINPAL", requiresPrinting: false, affiliateUrl: "https://invl.us/clnfk9q", logo: "https://www.google.com/s2/favicons?domain=trainpal.com&sz=64" },
   { id: "ia-flower-1", store: "FlowerAdvisor PH", offer: "6% Commission", description: "Send flowers & gifts anywhere in the Philippines.", category: "Lifestyle", expiryDate: "2026-12-31", code: "FLOWER6", requiresPrinting: false, affiliateUrl: "https://invl.me/clnfk9x", logo: "https://www.google.com/s2/favicons?domain=floweradvisor.com&sz=64" },
-  { id: "ia-shopee-1", store: "Shopee PH", offer: "2.8% Cashback", description: "Shop millions of products on Shopee Philippines with cashback.", category: "Fashion", expiryDate: "2026-12-31", code: "SHOPEEPH", requiresPrinting: false, affiliateUrl: "https://invl.me/clnfk8z", logo: "https://www.google.com/s2/favicons?domain=shopee.ph&sz=64" },
+  { id: "ia-shopee-1", store: "Shopee PH", offer: "2.8% Cashback", description: "Shop millions of products on Shopee Philippines with cashback.", category: "Fashion", expiryDate: "2026-12-31", code: "SHOPEEPH", requiresPrinting: false, affiliateUrl: "https://invl.me/clng080", logo: "https://www.google.com/s2/favicons?domain=shopee.ph&sz=64" },
   { id: "ia-banggood-1", store: "Banggood Global", offer: "Up to 21% OFF", description: "Gadgets, electronics and more at huge discounts worldwide.", category: "Tech", expiryDate: "2026-12-31", code: "BANGGOOD21", requiresPrinting: false, affiliateUrl: "https://invl.me/clnfk96", logo: "https://www.google.com/s2/favicons?domain=banggood.com&sz=64" },
   { id: "ia-wegic-1", store: "Wegic AI", offer: "Up to 31.5% OFF", description: "AI-powered website builder. Create stunning sites in minutes.", category: "Tech", expiryDate: "2026-12-31", code: "WEGIC31", requiresPrinting: false, affiliateUrl: "https://invl.us/clnfk98", logo: "https://www.google.com/s2/favicons?domain=wegic.ai&sz=64" },
   { id: "ia-sider-1", store: "Sider AI", offer: "Up to 49% OFF", description: "AI assistant for browsing, writing and productivity.", category: "Tech", expiryDate: "2026-12-31", code: "SIDER49", requiresPrinting: false, affiliateUrl: "https://invl.me/clnfk9a", logo: "https://www.google.com/s2/favicons?domain=sider.ai&sz=64" },
