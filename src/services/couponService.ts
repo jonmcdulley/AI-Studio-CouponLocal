@@ -120,9 +120,9 @@ export async function reverseGeocode(lat: number, lng: number): Promise<string> 
 
 export async function getGroceryLinks(_location: string): Promise<GroceryLink[]> {
   return [
-    { name: "Shopee Vouchers", url: "https://shopee.ph/voucher", type: "coupon", description: "Daily vouchers and flash deals on Shopee Philippines.", logo: "https://www.google.com/s2/favicons?domain=shopee.ph&sz=64" },
-    { name: "Agoda Deals", url: "https://www.agoda.com/deals", type: "flyer", description: "Best hotel deals across Asia and worldwide.", logo: "https://www.google.com/s2/favicons?domain=agoda.com&sz=64" },
-    { name: "Klook Activities", url: "https://www.klook.com/en-PH/deals/", type: "flyer", description: "Discounted tours, activities and travel experiences.", logo: "https://www.google.com/s2/favicons?domain=klook.com&sz=64" },
-    { name: "Zalora Sale", url: "https://www.zalora.com.ph/sale/", type: "flyer", description: "Fashion deals and seasonal sales across top brands.", logo: "https://www.google.com/s2/favicons?domain=zalora.com.ph&sz=64" },
+    { name: "Shopee Vouchers", url: "https://invl.me/clng080", type: "coupon", description: "Daily vouchers and flash deals on Shopee Philippines.", logo: "https://www.google.com/s2/favicons?domain=shopee.ph&sz=64" },
+    { name: "Klook Activities", url: "https://invl.me/clng02e", type: "flyer", description: "Discounted tours, activities and travel experiences.", logo: "https://www.google.com/s2/favicons?domain=klook.com&sz=64" },
+    { name: "Zalora Sale", url: "https://invl.me/clng084", type: "flyer", description: "Fashion deals and seasonal sales across top brands.", logo: "https://www.google.com/s2/favicons?domain=zalora.com.ph&sz=64" },
+    { name: "Airalo eSIM", url: "https://invl.me/clnfka0", type: "coupon", description: "Buy eSIMs for travel in 200+ countries. No physical SIM needed.", logo: "https://www.google.com/s2/favicons?domain=airalo.com&sz=64" },
   ];
 }
