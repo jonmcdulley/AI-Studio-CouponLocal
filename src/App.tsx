@@ -508,7 +508,7 @@ export default function App() {
     )}
   </div>
   <div className="relative">
-    <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar scroll-smooth px-4">
+    <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar scroll-smooth px-4 touch-pan-x cursor-grab active:cursor-grabbing select-none">
       {loading ? (
         Array(5).fill(0).map((_, i) => (
           <div key={i} className="h-10 w-24 bg-white/40 backdrop-blur-sm animate-pulse rounded-full shrink-0 border border-white/20" />
