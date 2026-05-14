@@ -202,130 +202,162 @@ export default function App() {
   };
 
   const CouponCard = ({ coupon }: { coupon: Coupon }) => {
-    const expiringSoon = isExpiringSoon(coupon.expiryDate);
-    const saved = isSaved(coupon.id);
-    
-    return (
-      <motion.div
-        layoutId={coupon.id}
-        key={coupon.id}
-        whileHover={{ scale: 1.02, y: -4 }}
-        whileTap={{ scale: 0.98 }}
-        onClick={() => coupon.affiliateUrl ? window.open(coupon.affiliateUrl, '_blank') : setSelectedCoupon(coupon)}
-        className={cn(
-          "bg-white/60 backdrop-blur-md border rounded-3xl p-5 shadow-sm hover:shadow-xl transition-all cursor-pointer group relative overflow-hidden",
-          expiringSoon ? "border-red-200 shadow-red-100/50" : "border-white/40"
-        )}
-      >
-        {expiringSoon && (
-          <motion.div
-            initial={{ opacity: 0.5 }}
-            animate={{ opacity: [0.5, 1, 0.5] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-500 via-orange-500 to-red-500 z-10"
-          />
-        )}
-        
-        <div className={cn(
-          "absolute top-0 right-0 w-24 h-24 -mr-8 -mt-8 rounded-full group-hover:scale-125 transition-transform duration-700 opacity-50",
-          expiringSoon ? "bg-red-100/40" : (coupon.requiresPrinting ? "bg-orange-200/40" : "bg-indigo-200/40")
-        )} />
-        
-        <div className="relative flex justify-between items-start mb-3">
-          <div className="flex-1">
-            <div className="flex items-center gap-2 mb-2">
-              {coupon.logo && (
-                <img
-                  src={coupon.logo}
-                  alt={coupon.store}
-                  className="w-6 h-6 rounded-md object-contain bg-white border border-gray-100 p-0.5"
-                  onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
-                />
-              )}
-              <span className={cn(
-                "inline-block px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-lg",
-                coupon.requiresPrinting ? "bg-orange-50 text-orange-600" : "bg-indigo-50 text-indigo-600"
-              )}>
-                {coupon.category}
-              </span>
-              {coupon.sourceUrl && (
-                <span className="inline-block px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-lg bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
-                  Verified
-                </span>
-              )}
-              {expiringSoon && (
-                <span className="inline-block px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-lg bg-red-50 text-red-600 animate-pulse border border-red-100">
-                  Expiring Soon!
-                </span>
-              )}
-              {!expiringSoon && coupon.offer && (() => {
-                const match = coupon.offer.match(/(\d+(\.\d+)?)/);
-                const pct = match ? parseFloat(match[1]) : 0;
-                if (pct >= 10) return (
-                  <span className="inline-block px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-lg bg-orange-50 text-orange-600 border border-orange-100">
-                    🔥 Hot
-                  </span>
-                );
-                if (pct >= 6) return (
-                  <span className="inline-block px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-lg bg-yellow-50 text-yellow-600 border border-yellow-100">
-                    ⭐ Featured
-                  </span>
-                );
-                return null;
-              })()}
-            </div>
-            <h3 className="text-lg font-bold text-gray-900 group-hover:text-indigo-600 transition-colors">{coupon.store}</h3>
-          </div>
-          <div className="flex flex-col items-end gap-2">
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={(e) => toggleSave(e, coupon)}
-              className={cn(
-                "p-2 rounded-full transition-all border",
-                saved 
-                  ? "bg-red-50 border-red-100 text-red-500 shadow-sm" 
-                  : "bg-white/80 border-gray-100 text-gray-400 hover:text-red-400"
-              )}
-            >
-              <Heart size={18} fill={saved ? "currentColor" : "none"} />
-            </motion.button>
-            <div className={cn(
-              "text-xl font-black",
-              expiringSoon ? "text-red-600" : (coupon.requiresPrinting ? "text-orange-600" : "text-indigo-600")
-            )}>{coupon.offer}</div>
-          </div>
-        </div>
-
-        <p className="text-gray-500 text-sm mb-4 line-clamp-2 leading-relaxed">
-          {coupon.description}
-        </p>
-
-        <div className="flex items-center justify-between pt-4 border-t border-gray-50">
-          <div className={cn(
-            "flex items-center gap-1.5 text-xs font-medium",
-            expiringSoon ? "text-red-500" : "text-gray-400"
-          )}>
-            <Calendar size={14} className={expiringSoon ? "animate-bounce" : ""} />
-            <span>Expires: {coupon.expiryDate}</span>
-          </div>
-          <div className={cn(
-            "flex items-center gap-1 font-bold text-sm",
-            expiringSoon ? "text-red-600" : (coupon.requiresPrinting ? "text-orange-600" : "text-indigo-600")
-          )}>
-            {coupon.affiliateUrl ? (
-              <a href={coupon.affiliateUrl} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="flex items-center gap-1">
-                {coupon.requiresPrinting ? "Print Now" : "Use Now"} <ChevronRight size={16} />
-              </a>
-            ) : (
-              <>{coupon.requiresPrinting ? "Print Now" : "Use Now"} <ChevronRight size={16} /></>
+  const expiringSoon = isExpiringSoon(coupon.expiryDate);
+  const saved = isSaved(coupon.id);
+  
+  return (
+    <motion.div
+      layoutId={coupon.id}
+      key={coupon.id}
+      whileHover={{ scale: 1.02, y: -4 }}
+      whileTap={{ scale: 0.98 }}
+      onClick={() => coupon.affiliateUrl ? window.open(coupon.affiliateUrl, '_blank') : setSelectedCoupon(coupon)}
+      className={cn(
+        "bg-white/60 backdrop-blur-md border rounded-3xl p-5 shadow-sm hover:shadow-xl transition-all cursor-pointer group relative overflow-hidden",
+        expiringSoon ? "border-red-200 shadow-red-100/50" : "border-white/40"
+      )}
+    >
+      {expiringSoon && (
+        <motion.div
+          initial={{ opacity: 0.5 }}
+          animate={{ opacity: [0.5, 1, 0.5] }}
+          transition={{ duration: 2, repeat: Infinity }}
+          className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-500 via-orange-500 to-red-500 z-10"
+        />
+      )}
+      
+      <div className={cn(
+        "absolute top-0 right-0 w-24 h-24 -mr-8 -mt-8 rounded-full group-hover:scale-125 transition-transform duration-700 opacity-50",
+        expiringSoon ? "bg-red-100/40" : (coupon.requiresPrinting ? "bg-orange-200/40" : "bg-indigo-200/40")
+      )} />
+      
+      <div className="relative flex justify-between items-start mb-3">
+        <div className="flex-1">
+          <div className="flex items-center gap-2 mb-2 flex-wrap">
+            {coupon.logo && (
+              <img
+                src={coupon.logo}
+                alt={coupon.store}
+                className="w-6 h-6 rounded-md object-contain bg-white border border-gray-100 p-0.5"
+                onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+              />
             )}
+            <span className={cn(
+              "inline-block px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-lg",
+              coupon.requiresPrinting ? "bg-orange-50 text-orange-600" : "bg-indigo-50 text-indigo-600"
+            )}>
+              {coupon.category}
+            </span>
+
+            {/* ✅ NEW: Code vs Deal badge */}
+            {coupon.code ? (
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-lg bg-green-50 text-green-700 border border-green-100">
+                <Tag size={10} />
+                Code
+              </span>
+            ) : (
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-lg bg-sky-50 text-sky-600 border border-sky-100">
+                <ExternalLink size={10} />
+                Deal
+              </span>
+            )}
+
+            {coupon.sourceUrl && (
+              <span className="inline-flex px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-lg bg-emerald-50 text-emerald-600 border border-emerald-100 items-center gap-1">
+                <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
+                Verified
+              </span>
+            )}
+            {expiringSoon && (
+              <span className="inline-block px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-lg bg-red-50 text-red-600 animate-pulse border border-red-100">
+                Expiring Soon!
+              </span>
+            )}
+            {!expiringSoon && coupon.offer && (() => {
+              const match = coupon.offer.match(/(\d+(\.\d+)?)/);
+              const pct = match ? parseFloat(match[1]) : 0;
+              if (pct >= 10) return (
+                <span className="inline-block px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-lg bg-orange-50 text-orange-600 border border-orange-100">
+                  🔥 Hot
+                </span>
+              );
+              if (pct >= 6) return (
+                <span className="inline-block px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-lg bg-yellow-50 text-yellow-600 border border-yellow-100">
+                  ⭐ Featured
+                </span>
+              );
+              return null;
+            })()}
           </div>
+          <h3 className="text-lg font-bold text-gray-900 group-hover:text-indigo-600 transition-colors">{coupon.store}</h3>
         </div>
-      </motion.div>
-    );
-  };
+        <div className="flex flex-col items-end gap-2">
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={(e) => toggleSave(e, coupon)}
+            className={cn(
+              "p-2 rounded-full transition-all border",
+              saved 
+                ? "bg-red-50 border-red-100 text-red-500 shadow-sm" 
+                : "bg-white/80 border-gray-100 text-gray-400 hover:text-red-400"
+            )}
+          >
+            <Heart size={18} fill={saved ? "currentColor" : "none"} />
+          </motion.button>
+          <div className={cn(
+            "text-xl font-black",
+            expiringSoon ? "text-red-600" : (coupon.requiresPrinting ? "text-orange-600" : "text-indigo-600")
+          )}>{coupon.offer}</div>
+        </div>
+      </div>
+
+      <p className="text-gray-500 text-sm mb-4 line-clamp-2 leading-relaxed">
+        {coupon.description}
+      </p>
+
+      {/* ✅ NEW: Inline code display with copy button */}
+      {coupon.code && (
+        <div className="mb-3 flex items-center gap-2">
+          <span className="font-mono font-black text-sm tracking-widest bg-green-50 border border-dashed border-green-200 text-green-800 px-3 py-1.5 rounded-xl">
+            {coupon.code}
+          </span>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              navigator.clipboard.writeText(coupon.code!);
+            }}
+            className="text-[10px] font-bold text-green-700 bg-green-100 px-2 py-1 rounded-lg hover:bg-green-200 transition-colors"
+          >
+            Copy
+          </button>
+        </div>
+      )}
+
+      <div className="flex items-center justify-between pt-4 border-t border-gray-50">
+        <div className={cn(
+          "flex items-center gap-1.5 text-xs font-medium",
+          expiringSoon ? "text-red-500" : "text-gray-400"
+        )}>
+          <Calendar size={14} className={expiringSoon ? "animate-bounce" : ""} />
+          <span>Expires: {coupon.expiryDate}</span>
+        </div>
+        <div className={cn(
+          "flex items-center gap-1 font-bold text-sm",
+          expiringSoon ? "text-red-600" : (coupon.requiresPrinting ? "text-orange-600" : "text-indigo-600")
+        )}>
+          {coupon.affiliateUrl ? (
+            <a href={coupon.affiliateUrl} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="flex items-center gap-1">
+              {coupon.requiresPrinting ? "Print Now" : coupon.code ? "Use Code" : "Get Deal"} <ChevronRight size={16} />
+            </a>
+          ) : (
+            <>{coupon.requiresPrinting ? "Print Now" : coupon.code ? "Use Code" : "Get Deal"} <ChevronRight size={16} /></>
+          )}
+        </div>
+      </div>
+    </motion.div>
+  );
+};
 
   return (
     <div className="min-h-screen text-[#1A1A1A] font-sans relative">
