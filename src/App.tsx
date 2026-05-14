@@ -508,7 +508,35 @@ export default function App() {
     )}
   </div>
   <div className="relative">
-    <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar scroll-smooth px-4 touch-pan-x cursor-grab active:cursor-grabbing select-none">
+    <div
+      className="flex gap-2 overflow-x-auto pb-2 no-scrollbar px-4 select-none"
+      style={{ scrollBehavior: 'smooth', WebkitOverflowScrolling: 'touch', overflowX: 'scroll' }}
+      onMouseDown={(e) => {
+        const el = e.currentTarget;
+        el.dataset.dragging = 'true';
+        el.dataset.startX = String(e.pageX - el.offsetLeft);
+        el.dataset.scrollLeft = String(el.scrollLeft);
+        el.style.cursor = 'grabbing';
+      }}
+      onMouseMove={(e) => {
+        const el = e.currentTarget;
+        if (el.dataset.dragging !== 'true') return;
+        e.preventDefault();
+        const x = e.pageX - el.offsetLeft;
+        const walk = (x - Number(el.dataset.startX)) * 1.5;
+        el.scrollLeft = Number(el.dataset.scrollLeft) - walk;
+      }}
+      onMouseUp={(e) => {
+        const el = e.currentTarget;
+        el.dataset.dragging = 'false';
+        el.style.cursor = 'grab';
+      }}
+      onMouseLeave={(e) => {
+        const el = e.currentTarget;
+        el.dataset.dragging = 'false';
+        el.style.cursor = 'grab';
+      }}
+    >
       {loading ? (
         Array(5).fill(0).map((_, i) => (
           <div key={i} className="h-10 w-24 bg-white/40 backdrop-blur-sm animate-pulse rounded-full shrink-0 border border-white/20" />
@@ -552,9 +580,8 @@ export default function App() {
         </>
       )}
     </div>
-    {/* Fade overlay to hint at scrollable content */}
     <div className="absolute right-0 top-0 h-full w-16 bg-gradient-to-l from-white/80 via-white/40 to-transparent pointer-events-none" />
-<div className="absolute left-0 top-0 h-full w-4 bg-gradient-to-r from-white/80 to-transparent pointer-events-none" />
+    <div className="absolute left-0 top-0 h-full w-4 bg-gradient-to-r from-white/80 to-transparent pointer-events-none" />
   </div>
 </section>
 
