@@ -766,40 +766,79 @@ export default function App() {
                 </div>
 
                 <div className={cn(
-                  "rounded-3xl p-6 mb-8 border",
-                  selectedCoupon.requiresPrinting ? "bg-orange-50 border-orange-100" : "bg-indigo-50 border-indigo-100"
-                )}>
-                  <div className="flex items-center gap-3 mb-4">
-                    {selectedCoupon.requiresPrinting ? (
-                      <Printer className="text-orange-600" size={24} />
-                    ) : (
-                      <Smartphone className="text-indigo-600" size={24} />
-                    )}
-                    <h4 className={cn(
-                      "font-bold",
-                      selectedCoupon.requiresPrinting ? "text-orange-900" : "text-indigo-900"
-                    )}>
-                      {selectedCoupon.requiresPrinting ? "Printable Coupon" : "Digital Redemption"}
-                    </h4>
-                  </div>
-                  <p className={cn(
-                    "text-sm mb-6",
-                    selectedCoupon.requiresPrinting ? "text-orange-700/70" : "text-indigo-700/70"
-                  )}>
-                    {selectedCoupon.requiresPrinting 
-                      ? "This coupon must be printed and presented at the store."
-                      : "Show this code to the cashier at checkout. No printing required."}
-                  </p>
-                  <div className={cn(
-                    "bg-white rounded-2xl p-6 flex flex-col items-center justify-center border-2 border-dashed",
-                    selectedCoupon.requiresPrinting ? "border-orange-200" : "border-indigo-200"
-                  )}>
-                    <div className="text-xs font-bold text-gray-400 uppercase tracking-[0.3em] mb-4">Coupon Code</div>
-                    <div className="text-3xl font-mono font-black tracking-widest text-gray-900 mb-4">
-                      {selectedCoupon.code}
-                    </div>
-                  </div>
-                </div>
+  "rounded-3xl p-6 mb-8 border",
+  selectedCoupon.requiresPrinting 
+    ? "bg-orange-50 border-orange-100" 
+    : selectedCoupon.code 
+      ? "bg-indigo-50 border-indigo-100"
+      : "bg-sky-50 border-sky-100"
+)}>
+  <div className="flex items-center gap-3 mb-4">
+    {selectedCoupon.requiresPrinting ? (
+      <Printer className="text-orange-600" size={24} />
+    ) : selectedCoupon.code ? (
+      <Smartphone className="text-indigo-600" size={24} />
+    ) : (
+      <ExternalLink className="text-sky-600" size={24} />
+    )}
+    <h4 className={cn(
+      "font-bold",
+      selectedCoupon.requiresPrinting 
+        ? "text-orange-900" 
+        : selectedCoupon.code 
+          ? "text-indigo-900"
+          : "text-sky-900"
+    )}>
+      {selectedCoupon.requiresPrinting 
+        ? "Printable Coupon" 
+        : selectedCoupon.code 
+          ? "Digital Redemption"
+          : "Click-Through Deal"}
+    </h4>
+  </div>
+  <p className={cn(
+    "text-sm mb-6",
+    selectedCoupon.requiresPrinting 
+      ? "text-orange-700/70" 
+      : selectedCoupon.code 
+        ? "text-indigo-700/70"
+        : "text-sky-700/70"
+  )}>
+    {selectedCoupon.requiresPrinting 
+      ? "This coupon must be printed and presented at the store."
+      : selectedCoupon.code
+        ? "Copy the code below and paste it at checkout. No printing required."
+        : "No code needed! Just click the button below and the discount applies automatically at checkout."}
+  </p>
+
+  {selectedCoupon.code ? (
+    <div className={cn(
+      "bg-white rounded-2xl p-6 flex flex-col items-center justify-center border-2 border-dashed",
+      selectedCoupon.requiresPrinting ? "border-orange-200" : "border-indigo-200"
+    )}>
+      <div className="text-xs font-bold text-gray-400 uppercase tracking-[0.3em] mb-4">Coupon Code</div>
+      <div className="text-3xl font-mono font-black tracking-widest text-gray-900 mb-4">
+        {selectedCoupon.code}
+      </div>
+      <button
+        onClick={() => {
+          navigator.clipboard.writeText(selectedCoupon.code!);
+        }}
+        className="mt-2 px-6 py-2 bg-indigo-600 text-white text-sm font-bold rounded-full hover:bg-indigo-700 transition-colors"
+      >
+        Copy Code
+      </button>
+    </div>
+  ) : (
+    <div className="bg-white rounded-2xl p-6 flex flex-col items-center justify-center border-2 border-dashed border-sky-200 text-center">
+      <div className="w-12 h-12 bg-sky-100 rounded-full flex items-center justify-center mb-3">
+        <ExternalLink className="text-sky-600" size={22} />
+      </div>
+      <div className="text-sm font-bold text-sky-800 mb-1">No Code Required</div>
+      <p className="text-xs text-sky-600/70">Discount is applied automatically when you visit the store through this link.</p>
+    </div>
+  )}
+</div>
 
                 <div className="flex items-center justify-between text-gray-400">
                   <div className="flex items-center gap-2 text-sm font-medium">
