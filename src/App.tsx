@@ -204,6 +204,14 @@ export default function App() {
   const CouponCard = ({ coupon }: { coupon: Coupon }) => {
   const expiringSoon = isExpiringSoon(coupon.expiryDate);
   const saved = isSaved(coupon.id);
+  const [copied, setCopied] = React.useState(false);
+
+  const handleCopy = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    navigator.clipboard.writeText(coupon.code!);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
   
   return (
     <motion.div
@@ -323,14 +331,16 @@ export default function App() {
             {coupon.code}
           </span>
           <button
-            onClick={(e) => {
-              e.stopPropagation();
-              navigator.clipboard.writeText(coupon.code!);
-            }}
-            className="text-[10px] font-bold text-green-700 bg-green-100 px-2 py-1 rounded-lg hover:bg-green-200 transition-colors"
-          >
-            Copy
-          </button>
+  onClick={handleCopy}
+  className={cn(
+    "text-[10px] font-bold px-2 py-1 rounded-lg transition-all",
+    copied
+      ? "bg-green-500 text-white scale-95"
+      : "text-green-700 bg-green-100 hover:bg-green-200"
+  )}
+>
+  {copied ? "Copied! ✓" : "Copy"}
+</button>
         </div>
       )}
 
@@ -485,63 +495,68 @@ export default function App() {
       <main className="max-w-2xl mx-auto px-4 py-6 pb-24" style={{ display: activePage === 'deals' ? 'block' : 'none' }}>
 
         {/* AI Categories */}
-        <section className="mb-8 -mx-4">
-          <div className="flex items-center justify-between mb-4 px-4">
-            <h2 className="text-sm font-bold uppercase tracking-wider text-gray-400">Browse Categories</h2>
-            {selectedCategory && (
-              <button 
-                onClick={() => setSelectedCategory(null)}
-                className="text-xs font-semibold text-indigo-600 hover:text-indigo-700"
+<section className="mb-8 -mx-4">
+  <div className="flex items-center justify-between mb-4 px-4">
+    <h2 className="text-sm font-bold uppercase tracking-wider text-gray-400">Browse Categories</h2>
+    {selectedCategory && (
+      <button 
+        onClick={() => setSelectedCategory(null)}
+        className="text-xs font-semibold text-indigo-600 hover:text-indigo-700"
+      >
+        Clear Filter
+      </button>
+    )}
+  </div>
+  <div className="relative">
+    <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar scroll-smooth px-4">
+      {loading ? (
+        Array(5).fill(0).map((_, i) => (
+          <div key={i} className="h-10 w-24 bg-white/40 backdrop-blur-sm animate-pulse rounded-full shrink-0 border border-white/20" />
+        ))
+      ) : (
+        <>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setSelectedCategory(null)}
+            className={cn(
+              "px-5 py-2.5 rounded-full text-sm font-semibold whitespace-nowrap transition-all border shrink-0 shadow-sm",
+              selectedCategory === null 
+                ? "bg-indigo-600 border-indigo-600 text-white shadow-lg shadow-indigo-200" 
+                : "bg-white/60 backdrop-blur-md border-white/40 text-gray-600 hover:bg-white/80"
+            )}
+          >
+            All Deals
+          </motion.button>
+          {categories
+            .filter(cat => coupons.some(coupon => 
+              coupon.category.toLowerCase().includes(cat.toLowerCase()) || 
+              cat.toLowerCase().includes(coupon.category.toLowerCase())
+            ))
+            .map((cat) => (
+              <motion.button
+                key={cat}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setSelectedCategory(selectedCategory === cat ? null : cat)}
+                className={cn(
+                  "px-5 py-2.5 rounded-full text-sm font-semibold whitespace-nowrap transition-all border shrink-0 shadow-sm",
+                  selectedCategory === cat 
+                    ? "bg-indigo-600 border-indigo-600 text-white shadow-lg shadow-indigo-200" 
+                    : "bg-white/60 backdrop-blur-md border-white/40 text-gray-600 hover:bg-white/80"
+                )}
               >
-                Clear Filter
-              </button>
-            )}
-          </div>
-          <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar scroll-smooth px-4">
-            {loading ? (
-              Array(5).fill(0).map((_, i) => (
-                <div key={i} className="h-10 w-24 bg-white/40 backdrop-blur-sm animate-pulse rounded-full shrink-0 border border-white/20" />
-              ))
-            ) : (
-              <>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => setSelectedCategory(null)}
-                  className={cn(
-                    "px-5 py-2.5 rounded-full text-sm font-semibold whitespace-nowrap transition-all border shrink-0 shadow-sm",
-                    selectedCategory === null 
-                      ? "bg-indigo-600 border-indigo-600 text-white shadow-lg shadow-indigo-200" 
-                      : "bg-white/60 backdrop-blur-md border-white/40 text-gray-600 hover:bg-white/80"
-                  )}
-                >
-                  All Deals
-                </motion.button>
-                {categories
-                  .filter(cat => coupons.some(coupon => 
-                    coupon.category.toLowerCase().includes(cat.toLowerCase()) || 
-                    cat.toLowerCase().includes(coupon.category.toLowerCase())
-                  ))
-                  .map((cat) => (
-                    <motion.button
-                      key={cat}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      onClick={() => setSelectedCategory(selectedCategory === cat ? null : cat)}
-                      className={cn(
-                        "px-5 py-2.5 rounded-full text-sm font-semibold whitespace-nowrap transition-all border shrink-0 shadow-sm",
-                        selectedCategory === cat 
-                          ? "bg-indigo-600 border-indigo-600 text-white shadow-lg shadow-indigo-200" 
-                          : "bg-white/60 backdrop-blur-md border-white/40 text-gray-600 hover:bg-white/80"
-                      )}
-                    >
-                      {cat}
-                    </motion.button>
-                  ))}
-              </>
-            )}
-          </div>
-        </section>
+                {cat}
+              </motion.button>
+            ))}
+        </>
+      )}
+    </div>
+    {/* Fade overlay to hint at scrollable content */}
+    <div className="absolute right-0 top-0 h-full w-16 bg-gradient-to-l from-white/80 via-white/40 to-transparent pointer-events-none" />
+<div className="absolute left-0 top-0 h-full w-4 bg-gradient-to-r from-white/80 to-transparent pointer-events-none" />
+  </div>
+</section>
 
         {/* Grocery Links & Flyers */}
         <section className="mb-10">
