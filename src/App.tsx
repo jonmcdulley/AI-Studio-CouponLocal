@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation as useRouterLocation } from 'react-router-dom';
 import ComparePage from "./ComparePage";
 import AboutPage from './AboutPage';
 import BlogPage from './BlogPage';
@@ -50,10 +50,10 @@ const LivelyBackground = () => {
 
 export default function App() {
   const navigate = useNavigate();
-  const location = useLocation();
-  const activePage = location.pathname === '/blog' ? 'blog'
-    : location.pathname === '/about' ? 'about'
-    : location.pathname === '/compare' ? 'compare'
+  const routerLocation = useRouterLocation();
+  const activePage = routerLocation.pathname === '/blog' ? 'blog'
+    : routerLocation.pathname === '/about' ? 'about'
+    : routerLocation.pathname === '/compare' ? 'compare'
     : 'deals';
   const setActivePage = (page: 'deals' | 'blog' | 'about' | 'compare') => {
     navigate(page === 'deals' ? '/' : `/${page}`);
