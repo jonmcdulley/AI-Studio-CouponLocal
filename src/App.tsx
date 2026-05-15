@@ -23,7 +23,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from './lib/utils';
-import { searchCoupons, getSuggestedCategories, reverseGeocode, getGroceryLinks, Coupon, GroceryLink } from './services/couponService';
+import { searchCoupons, getSuggestedCategories, reverseGeocode, getGroceryLinks, detectRegion, Coupon, GroceryLink, Region } from './services/couponService';
 
 const LivelyBackground = () => {
   return (
@@ -71,6 +71,15 @@ export default function App() {
     return saved ? JSON.parse(saved) : [];
   });
   const [showSavedOnly, setShowSavedOnly] = useState(false);
+  const [region, setRegion] = useState<Region>("global");
+  const [regionDetected, setRegionDetected] = useState(false);
+
+  useEffect(() => {
+    detectRegion().then((r) => {
+      setRegion(r);
+      setRegionDetected(true);
+    });
+  }, []);
 
   useEffect(() => {
     localStorage.setItem('savedCoupons', JSON.stringify(savedCoupons));
@@ -140,11 +149,12 @@ export default function App() {
     }
   };
 
-  const loadInitialData = async (loc: string) => {
+  const loadInitialData = async (loc: string, rgn?: Region) => {
     setLoading(true);
+    const activeRegion = rgn ?? region;
     try {
       const results = await Promise.allSettled([
-        searchCoupons(loc),
+        searchCoupons(loc, "", activeRegion),
         getSuggestedCategories(loc),
         getGroceryLinks(loc)
       ]);
@@ -169,7 +179,7 @@ export default function App() {
     if (e) e.preventDefault();
     setSearching(true);
     try {
-      const results = await searchCoupons(location, searchQuery);
+      const results = await searchCoupons(location, searchQuery, region);
       setCoupons(results);
       setSelectedCategory(null);
     } catch (err) {
@@ -383,6 +393,33 @@ export default function App() {
               </div>
             </div>
             <div className="flex items-center gap-2">
+              {/* Region Switcher */}
+              {regionDetected && (
+                <div className="flex items-center bg-gray-100 rounded-full p-0.5 border border-gray-200">
+                  {([
+                    { value: "PH", flag: "🇵🇭" },
+                    { value: "global", flag: "🌍" },
+                    { value: "US", flag: "🇺🇸" },
+                  ] as { value: Region; flag: string }[]).map(({ value, flag }) => (
+                    <button
+                      key={value}
+                      onClick={() => {
+                        setRegion(value);
+                        loadInitialData(location, value);
+                      }}
+                      title={value === "global" ? "Global" : value}
+                      className={cn(
+                        "w-8 h-7 rounded-full text-base flex items-center justify-center transition-all",
+                        region === value
+                          ? "bg-white shadow-sm scale-110"
+                          : "opacity-40 hover:opacity-70"
+                      )}
+                    >
+                      {flag}
+                    </button>
+                  ))}
+                </div>
+              )}
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
