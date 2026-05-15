@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { Ticket, Search, Heart, Scan, MapPin, Shield, Zap, Globe, Mail, ExternalLink } from 'lucide-react';
 
@@ -58,11 +59,8 @@ const faqs = [
   },
 ];
 
-interface AboutPageProps {
-  onClose: () => void;
-}
-
-export default function AboutPage({ onClose }: AboutPageProps) {
+export default function AboutPage() {
+  const navigate = useNavigate();
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}

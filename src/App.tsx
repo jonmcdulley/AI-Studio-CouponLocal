@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import ComparePage from "./ComparePage";
 import AboutPage from './AboutPage';
 import BlogPage from './BlogPage';
@@ -23,7 +24,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from './lib/utils';
-import { searchCoupons, getSuggestedCategories, reverseGeocode, getGroceryLinks, detectRegion, Coupon, GroceryLink, Region } from './services/couponService';
+import { searchCoupons, getSuggestedCategories, reverseGeocode, getGroceryLinks, Coupon, GroceryLink } from './services/couponService';
 
 const LivelyBackground = () => {
   return (
@@ -48,7 +49,15 @@ const LivelyBackground = () => {
 };
 
 export default function App() {
-  const [activePage, setActivePage] = useState<'deals' | 'blog' | 'about' | 'compare'>('deals');
+  const navigate = useNavigate();
+  const location = useLocation();
+  const activePage = location.pathname === '/blog' ? 'blog'
+    : location.pathname === '/about' ? 'about'
+    : location.pathname === '/compare' ? 'compare'
+    : 'deals';
+  const setActivePage = (page: 'deals' | 'blog' | 'about' | 'compare') => {
+    navigate(page === 'deals' ? '/' : `/${page}`);
+  };
   const [location, setLocation] = useState<string>(() => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('savedLocation') || '';
@@ -71,15 +80,6 @@ export default function App() {
     return saved ? JSON.parse(saved) : [];
   });
   const [showSavedOnly, setShowSavedOnly] = useState(false);
-  const [region, setRegion] = useState<Region>("global");
-  const [regionDetected, setRegionDetected] = useState(false);
-
-  useEffect(() => {
-    detectRegion().then((r) => {
-      setRegion(r);
-      setRegionDetected(true);
-    });
-  }, []);
 
   useEffect(() => {
     localStorage.setItem('savedCoupons', JSON.stringify(savedCoupons));
@@ -149,12 +149,11 @@ export default function App() {
     }
   };
 
-  const loadInitialData = async (loc: string, rgn?: Region) => {
+  const loadInitialData = async (loc: string) => {
     setLoading(true);
-    const activeRegion = rgn ?? region;
     try {
       const results = await Promise.allSettled([
-        searchCoupons(loc, "", activeRegion),
+        searchCoupons(loc),
         getSuggestedCategories(loc),
         getGroceryLinks(loc)
       ]);
@@ -179,7 +178,7 @@ export default function App() {
     if (e) e.preventDefault();
     setSearching(true);
     try {
-      const results = await searchCoupons(location, searchQuery, region);
+      const results = await searchCoupons(location, searchQuery);
       setCoupons(results);
       setSelectedCategory(null);
     } catch (err) {
@@ -393,33 +392,6 @@ export default function App() {
               </div>
             </div>
             <div className="flex items-center gap-2">
-              {/* Region Switcher */}
-              {regionDetected && (
-                <div className="flex items-center bg-gray-100 rounded-full p-0.5 border border-gray-200">
-                  {([
-                    { value: "PH", flag: "🇵🇭" },
-                    { value: "global", flag: "🌍" },
-                    { value: "US", flag: "🇺🇸" },
-                  ] as { value: Region; flag: string }[]).map(({ value, flag }) => (
-                    <button
-                      key={value}
-                      onClick={() => {
-                        setRegion(value);
-                        loadInitialData(location, value);
-                      }}
-                      title={value === "global" ? "Global" : value}
-                      className={cn(
-                        "w-8 h-7 rounded-full text-base flex items-center justify-center transition-all",
-                        region === value
-                          ? "bg-white shadow-sm scale-110"
-                          : "opacity-40 hover:opacity-70"
-                      )}
-                    >
-                      {flag}
-                    </button>
-                  ))}
-                </div>
-              )}
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -526,9 +498,12 @@ export default function App() {
         </div>
       </header>
 
-      {activePage === 'about' && <AboutPage onClose={() => setActivePage('deals')} />}
-      {activePage === 'blog' && <BlogPage onClose={() => setActivePage('deals')} />}
-      {activePage === 'compare' && <ComparePage />}
+      <Routes>
+        <Route path="/blog" element={<BlogPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/compare" element={<ComparePage />} />
+        <Route path="/" element={null} />
+      </Routes>
       <main className="max-w-2xl mx-auto px-4 py-6 pb-24" style={{ display: activePage === 'deals' ? 'block' : 'none' }}>
 
         {/* AI Categories */}

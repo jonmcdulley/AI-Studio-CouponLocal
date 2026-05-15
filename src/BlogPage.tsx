@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { BookOpen, Clock, ChevronRight, X, Tag } from 'lucide-react';
 
@@ -107,11 +108,8 @@ const articles: Article[] = [
   },
 ];
 
-interface BlogPageProps {
-  onClose: () => void;
-}
-
-export default function BlogPage({ onClose }: BlogPageProps) {
+export default function BlogPage() {
+  const navigate = useNavigate();
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
 
   return (
