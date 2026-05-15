@@ -10,6 +10,7 @@ export interface Coupon {
   affiliateUrl?: string;
   sourceUrl?: string;
   logo?: string;
+  region: "PH" | "US" | "global"; // NEW
 }
 
 export interface GroceryLink {
@@ -19,6 +20,8 @@ export interface GroceryLink {
   description: string;
   logo?: string;
 }
+
+export type Region = "PH" | "US" | "global";
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 const logo = (domain: string) =>
@@ -33,59 +36,91 @@ const deal = (
   code: string,
   affiliateUrl: string,
   domain: string,
+  region: Region = "global",
   expiryDate = "2026-12-31"
 ): Coupon => ({
   id, store, offer, description, category,
   expiryDate, code, requiresPrinting: false,
-  affiliateUrl, logo: logo(domain),
+  affiliateUrl, logo: logo(domain), region,
 });
 
 // ─── Deals ────────────────────────────────────────────────────────────────────
 const REAL_DEALS: Coupon[] = [
 
-  // ── Travel ──────────────────────────────────────────────────────────────────
-  deal("ia-airalo-1",     "Airalo eSIM",      "15% Off — Use Code WELCOME15",              "Buy eSIMs for 200+ countries. New users save 15% at checkout.",                              "Travel",    "WELCOME15",          "https://invl.me/clnfka0",  "airalo.com"),
-  deal("ia-klook-1",      "Klook Travel",     "Up to 85% Off Tours & Activities",          "Use code PINOYFOODIEKLOOK for discounts on tours, tickets, airport transfers & eSIMs.",      "Travel",    "PINOYFOODIEKLOOK",   "https://invl.me/clng02e",  "klook.com"),
-  deal("ia-jetpac-1",     "Jetpac Global",    "Global eSIM & Travel Insurance",            "Stay connected anywhere with eSIM data plans and travel insurance.",                         "Travel",    "",                   "https://invl.me/clng029",  "jetpacglobal.com"),
-  deal("ia-zen-1",        "Zen Hotels",       "Best Hotel Deals in Asia",                  "Compare and book great hotel deals across Asia.",                                            "Travel",    "",                   "https://invl.app/clnfk9k", "zenhotels.com"),
-  deal("ia-kkday-1",      "KKday Global",     "5% Off First Booking + Up to 90% Off Tours","New users get 5% off first experience. Up to 90% off select tours worldwide.",               "Travel",    "KKDAYNEW",           "https://invl.me/clnfk9w",  "kkday.com"),
-  deal("ia-trainpal-1",   "TrainPal",         "Save on Train Tickets",                     "Book discounted train tickets across Europe and Asia.",                                      "Travel",    "",                   "https://invl.us/clnfk9q",  "trainpal.com"),
-  deal("ia-airpaz-1",     "Airpaz Global",    "Cheap Flights Worldwide",                   "Search and book cheap flights worldwide on the Airpaz app.",                                 "Travel",    "",                   "https://invl.me/clnfqhm",  "airpaz.com"),
+  // ── Travel (global — works anywhere) ────────────────────────────────────────
+  deal("ia-airalo-1",     "Airalo eSIM",      "15% Off — Use Code WELCOME15",               "Buy eSIMs for 200+ countries. New users save 15% at checkout.",                              "Travel",    "WELCOME15",          "https://invl.me/clnfka0",   "airalo.com",         "global"),
+  deal("ia-klook-1",      "Klook Travel",     "Up to 85% Off Tours & Activities",           "Use code PINOYFOODIEKLOOK for discounts on tours, tickets, airport transfers & eSIMs.",      "Travel",    "PINOYFOODIEKLOOK",   "https://invl.me/clng02e",   "klook.com",          "global"),
+  deal("ia-kkday-1",      "KKday Global",     "5% Off First Booking + Up to 90% Off Tours", "New users get 5% off first experience. Up to 90% off select tours worldwide.",               "Travel",    "KKDAYNEW",           "https://invl.me/clnfk9w",   "kkday.com",          "global"),
+  deal("ia-jetpac-1",     "Jetpac Global",    "Global eSIM & Travel Insurance",             "Stay connected anywhere with eSIM data plans and travel insurance.",                         "Travel",    "",                   "https://invl.me/clng029",   "jetpacglobal.com",   "global"),
+  deal("ia-zen-1",        "Zen Hotels",       "Best Hotel Deals in Asia",                   "Compare and book great hotel deals across Asia.",                                            "Travel",    "",                   "https://invl.app/clnfk9k",  "zenhotels.com",      "global"),
+  deal("ia-trainpal-1",   "TrainPal",         "Save on Train Tickets",                      "Book discounted train tickets across Europe and Asia.",                                      "Travel",    "",                   "https://invl.us/clnfk9q",   "trainpal.com",       "global"),
+  deal("ia-airpaz-1",     "Airpaz Global",    "Cheap Flights Worldwide",                    "Search and book cheap flights worldwide on the Airpaz app.",                                 "Travel",    "",                   "https://invl.me/clnfqhm",   "airpaz.com",         "global"),
+  deal("ia-agoda-1",      "Agoda",            "Genius Loyalty — 10-15% Off Hotels",         "Agoda Genius members get automatic 10-15% off select hotels. No code needed.",              "Travel",    "",                   "https://invl.me/clnfk9k",   "agoda.com",          "global"),
+  deal("ia-booking-1",    "Booking.com",      "15% Early Booking Discount",                 "Book early and save up to 15% on hotels worldwide. No code needed.",                        "Travel",    "",                   "https://invl.me/clnfk9q",   "booking.com",        "global"),
 
-  // ── Fashion ─────────────────────────────────────────────────────────────────
-  deal("ia-shein-1",      "Shein Global",     "Up to 60% Off + Extra 30% New Users",       "New users: up to 60% off sitewide. Use code SHEINNEW for extra savings.",                   "Fashion",   "SHEINNEW",           "https://miniurl.app/clnfk9b","shein.com"),
-  deal("ia-zalora-1",     "Zalora PH",        "25% Off First App Order",                   "New customers get 25% off first in-app purchase (min. spend ₱2,195).",                      "Fashion",   "APP25",              "https://invl.me/clng084",  "zalora.com.ph"),
-  deal("ia-shopee-1",     "Shopee PH",        "Daily Deals & Flash Sales",                 "Millions of products with daily vouchers and flash sales on Shopee PH.",                    "Fashion",   "",                   "https://invl.me/clng080",  "shopee.ph"),
-  deal("ia-taobao-1",     "Taobao",           "Up to 18% Off Selected Items",              "Shop millions of products from China's largest marketplace.",                                "Fashion",   "",                   "https://invl.me/clnfk9p",  "taobao.com"),
-  deal("ia-ck-1",         "Charles & Keith",  "New Arrivals — Bags, Shoes & More",         "Shop the latest bags, shoes and accessories from Charles & Keith PH.",                      "Fashion",   "",                   "https://invl.me/clnfk9t",  "charleskeith.com"),
-  deal("ia-bernardelli-1","Bernardelli",      "Premium Italian Fashion",                   "Explore premium Italian fashion and lifestyle products worldwide.",                          "Fashion",   "",                   "https://invl.me/clnfk9z",  "bernardelli.com"),
+  // ── Fashion — PH ────────────────────────────────────────────────────────────
+  deal("ia-zalora-1",     "Zalora PH",        "25% Off First App Order",                    "New customers get 25% off first in-app purchase (min. spend ₱2,195).",                      "Fashion",   "APP25",              "https://invl.me/clng084",   "zalora.com.ph",      "PH"),
+  deal("ia-shopee-1",     "Shopee PH",        "Daily Deals & Flash Sales",                  "Millions of products with daily vouchers and flash sales on Shopee PH.",                    "Shopping",  "",                   "https://invl.me/clng080",   "shopee.ph",          "PH"),
+  deal("ia-ck-1",         "Charles & Keith",  "New Arrivals — Bags, Shoes & More",          "Shop the latest bags, shoes and accessories from Charles & Keith PH.",                      "Fashion",   "",                   "https://invl.me/clnfk9t",   "charleskeith.com",   "PH"),
 
-  // ── Beauty ──────────────────────────────────────────────────────────────────
-  deal("ia-sephora-1",    "Sephora PH",       "Top Beauty Brands & Skincare",              "Shop premium beauty, skincare and makeup from the world's top brands.",                     "Beauty",    "",                   "https://invl.me/clnfka2",  "sephora.ph"),
-  deal("ia-papique-1",    "Papique",          "Premium Beauty & Skincare",                 "Discover curated beauty and skincare products delivered to your door.",                     "Beauty",    "",                   "https://invl.us/clnfqhf",  "papique.com"),
-  deal("ia-stylevana-1",  "Stylevana",        "K-Beauty & J-Beauty Deals",                 "Shop Korean and Japanese beauty brands at great prices.",                                   "Beauty",    "STYLEVANA",          "https://miniurl.app/clng02d","stylevana.com"),
+  // ── Fashion — Global ────────────────────────────────────────────────────────
+  deal("ia-shein-1",      "Shein Global",     "Up to 60% Off + Extra 30% New Users",        "New users: up to 60% off sitewide. Use code SHEINNEW for extra savings.",                   "Fashion",   "SHEINNEW",           "https://miniurl.app/clnfk9b","shein.com",          "global"),
+  deal("ia-taobao-1",     "Taobao",           "Up to 18% Off Selected Items",               "Shop millions of products from China's largest marketplace.",                                "Fashion",   "",                   "https://invl.me/clnfk9p",   "taobao.com",         "global"),
+  deal("ia-bernardelli-1","Bernardelli",      "Premium Italian Fashion",                    "Explore premium Italian fashion and lifestyle products worldwide.",                          "Fashion",   "",                   "https://invl.me/clnfk9z",   "bernardelli.com",    "global"),
 
-  // ── Tech ────────────────────────────────────────────────────────────────────
-  deal("ia-protonvpn-1",  "Proton VPN",       "Up to 70% Off — Code Inside",               "Use code VPNINTROPRICE2025 at checkout. World's most trusted VPN.",                         "Tech",      "VPNINTROPRICE2025",  "https://invl.me/clnfk9v",  "protonvpn.com"),
-  deal("ia-banggood-1",   "Banggood Global",  "Up to 21% Off Gadgets & Electronics",       "Huge discounts on gadgets, electronics and accessories worldwide.",                         "Tech",      "BANGGOOD21",         "https://invl.me/clnfk96",  "banggood.com"),
-  deal("ia-wegic-1",      "Wegic AI",         "Up to 31% Off AI Website Builder",          "Create stunning websites with AI in minutes. No coding needed.",                            "Tech",      "WEGIC31",            "https://invl.us/clnfk98",  "wegic.ai"),
-  deal("ia-sider-1",      "Sider AI",         "Up to 49% Off AI Assistant",                "AI-powered assistant for browsing, writing and productivity.",                              "Tech",      "SIDER49",            "https://invl.me/clnfk9a",  "sider.ai"),
-  deal("ia-wps-1",        "WPS Software",     "Up to 49% Off Office Suite",                "Full office suite: Writer, Spreadsheet and Presentation tools.",                            "Tech",      "WPS49",              "https://invl.app/clnfk9n", "wps.com", "2027-06-16"),
+  // ── Beauty — PH ─────────────────────────────────────────────────────────────
+  deal("ia-sephora-1",    "Sephora PH",       "Top Beauty Brands & Skincare",               "Shop premium beauty, skincare and makeup from the world's top brands.",                     "Beauty",    "",                   "https://invl.me/clnfka2",   "sephora.ph",         "PH"),
+  deal("ia-papique-1",    "Papique",          "Premium Beauty & Skincare",                  "Discover curated beauty and skincare products delivered to your door.",                     "Beauty",    "",                   "https://invl.us/clnfqhf",   "papique.com",        "PH"),
 
-  // ── Education ───────────────────────────────────────────────────────────────
-  deal("ia-udemy-1",      "Udemy",            "Up to 14% Off Online Courses",              "Learn from top instructors worldwide. Thousands of courses available.",                     "Education", "UDEMY14",            "https://invl.me/clnfk9h",  "udemy.com"),
+  // ── Beauty — Global ─────────────────────────────────────────────────────────
+  deal("ia-stylevana-1",  "Stylevana",        "K-Beauty & J-Beauty Deals",                  "Shop Korean and Japanese beauty brands at great prices.",                                   "Beauty",    "STYLEVANA",          "https://miniurl.app/clng02d","stylevana.com",      "global"),
+
+  // ── Tech — Global ───────────────────────────────────────────────────────────
+  deal("ia-protonvpn-1",  "Proton VPN",       "Up to 70% Off — Code Inside",                "Use code VPNINTROPRICE2025 at checkout. World's most trusted VPN.",                         "Tech",      "VPNINTROPRICE2025",  "https://invl.me/clnfk9v",   "protonvpn.com",      "global"),
+  deal("ia-banggood-1",   "Banggood Global",  "Up to 21% Off Gadgets & Electronics",        "Huge discounts on gadgets, electronics and accessories worldwide.",                         "Tech",      "BANGGOOD21",         "https://invl.me/clnfk96",   "banggood.com",       "global"),
+  deal("ia-wegic-1",      "Wegic AI",         "Up to 31% Off AI Website Builder",           "Create stunning websites with AI in minutes. No coding needed.",                            "Tech",      "WEGIC31",            "https://invl.us/clnfk98",   "wegic.ai",           "global"),
+  deal("ia-sider-1",      "Sider AI",         "Up to 49% Off AI Assistant",                 "AI-powered assistant for browsing, writing and productivity.",                              "Tech",      "SIDER49",            "https://invl.me/clnfk9a",   "sider.ai",           "global"),
+  deal("ia-wps-1",        "WPS Software",     "Up to 49% Off Office Suite",                 "Full office suite: Writer, Spreadsheet and Presentation tools.",                            "Tech",      "WPS49",              "https://invl.app/clnfk9n",  "wps.com",            "global", "2027-06-16"),
+
+  // ── Education — Global ──────────────────────────────────────────────────────
+  deal("ia-udemy-1",      "Udemy",            "Up to 14% Off Online Courses",               "Learn from top instructors worldwide. Thousands of courses available.",                     "Education", "UDEMY14",            "https://invl.me/clnfk9h",   "udemy.com",          "global"),
 
   // ── Dining ──────────────────────────────────────────────────────────────────
-  deal("ia-byfood-1",     "byFood",           "5% Off Food Tours & Cooking Classes",       "Book unique food tours and cooking classes across Asia. Use code SAKURA2026.",              "Dining",    "SAKURA2026",         "https://invl.us/clnfk95",  "byfood.com"),
+  deal("ia-byfood-1",     "byFood",           "5% Off Food Tours & Cooking Classes",        "Book unique food tours and cooking classes across Asia. Use code SAKURA2026.",              "Dining",    "SAKURA2026",         "https://invl.us/clnfk95",   "byfood.com",         "global"),
 
-  // ── Lifestyle ───────────────────────────────────────────────────────────────
-  deal("ia-flower-1",     "FlowerAdvisor PH", "Send Flowers Across the Philippines",       "Deliver fresh flowers and gifts anywhere in the Philippines.",                              "Lifestyle", "",                   "https://invl.me/clnfk9x",  "floweradvisor.com"),
+  // ── Lifestyle — PH ──────────────────────────────────────────────────────────
+  deal("ia-flower-1",     "FlowerAdvisor PH", "Send Flowers Across the Philippines",        "Deliver fresh flowers and gifts anywhere in the Philippines.",                              "Lifestyle", "",                   "https://invl.me/clnfk9x",   "floweradvisor.com",  "PH"),
 ];
 
+// ─── Geo Detection ────────────────────────────────────────────────────────────
+let cachedRegion: Region | null = null;
+
+export async function detectRegion(): Promise<Region> {
+  if (cachedRegion) return cachedRegion;
+  try {
+    const res = await fetch("https://ipapi.co/json/");
+    const data = await res.json();
+    const country: string = data.country_code || "";
+    if (country === "PH") cachedRegion = "PH";
+    else if (country === "US") cachedRegion = "US";
+    else cachedRegion = "global";
+  } catch {
+    cachedRegion = "global"; // fallback if API fails
+  }
+  return cachedRegion;
+}
+
 // ─── Exports ──────────────────────────────────────────────────────────────────
-export async function searchCoupons(location: string, query = ""): Promise<Coupon[]> {
+export async function searchCoupons(location: string, query = "", region?: Region): Promise<Coupon[]> {
   const today = new Date().toISOString().split("T")[0];
-  const active = REAL_DEALS.filter(c => c.expiryDate >= today);
+  const detectedRegion = region || await detectRegion();
+
+  const active = REAL_DEALS.filter(c => {
+    if (c.expiryDate < today) return false;
+    // show global deals always; show region-specific only if it matches
+    return c.region === "global" || c.region === detectedRegion;
+  });
+
   if (!query) return active;
   const q = (query + " " + location).toLowerCase();
   const filtered = active.filter(c =>
@@ -97,7 +132,7 @@ export async function searchCoupons(location: string, query = ""): Promise<Coupo
 }
 
 export async function getSuggestedCategories(_location: string): Promise<string[]> {
-  return ["Travel", "Fashion", "Tech", "Beauty", "Dining", "Education", "Lifestyle"];
+  return ["Travel", "Fashion", "Tech", "Beauty", "Shopping", "Dining", "Education", "Lifestyle"];
 }
 
 export async function reverseGeocode(lat: number, lng: number): Promise<string> {
