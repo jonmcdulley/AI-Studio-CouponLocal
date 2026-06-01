@@ -49,7 +49,7 @@ const REAL_DEALS: Coupon[] = [
 
   // ── Travel (global — works anywhere) ────────────────────────────────────────
   deal("ia-airalo-1",     "Airalo eSIM",      "15% Off — Use Code WELCOME15",               "Buy eSIMs for 200+ countries. New users save 15% at checkout.",                              "Travel",    "WELCOME15",          "https://invl.me/clnfka0",   "airalo.com",         "global"),
-  deal("ia-klook-1",      "Klook Travel",     "Up to 85% Off Tours & Activities",           "Use code PINOYFOODIEKLOOK for discounts on tours, tickets, airport transfers & eSIMs.",      "Travel",    "PINOYFOODIEKLOOK",   "https://invl.me/clng02e",   "klook.com",          "global"),
+  deal("ia-klook-1",      "Klook Travel",     "10% Off First Booking",                      "New users get 10% off first booking. Use code KLOOKFIRSTIN at checkout. Great deals on tours, tickets & airport transfers.", "Travel", "KLOOKFIRSTIN", "https://invl.me/clng02e", "klook.com", "global"),
   deal("ia-kkday-1",      "KKday Global",     "5% Off First Booking + Up to 90% Off Tours", "New users get 5% off first experience. Up to 90% off select tours worldwide.",               "Travel",    "KKDAYNEW",           "https://invl.me/clnfk9w",   "kkday.com",          "global"),
   deal("ia-jetpac-1",     "Jetpac Global",    "Global eSIM & Travel Insurance",             "Stay connected anywhere with eSIM data plans and travel insurance.",                         "Travel",    "",                   "https://invl.me/clng029",   "jetpacglobal.com",   "global"),
   deal("ia-zen-1",        "Zen Hotels",       "Best Hotel Deals in Asia",                   "Compare and book great hotel deals across Asia.",                                            "Travel",    "",                   "https://invl.app/clnfk9k",  "zenhotels.com",      "global"),
@@ -68,12 +68,20 @@ const REAL_DEALS: Coupon[] = [
   deal("ia-taobao-1",     "Taobao",           "Up to 18% Off Selected Items",               "Shop millions of products from China's largest marketplace.",                                "Fashion",   "",                   "https://invl.me/clnfk9p",   "taobao.com",         "global"),
   deal("ia-bernardelli-1","Bernardelli",      "Premium Italian Fashion",                    "Explore premium Italian fashion and lifestyle products worldwide.",                          "Fashion",   "",                   "https://invl.me/clnfk9z",   "bernardelli.com",    "global"),
 
+  // ── Beauty — Global ─────────────────────────────────────────────────────────
+  deal("ia-foreo-1",      "FOREO",            "Skincare Tech — Up to 30% Off",              "Swedish beauty-tech brand loved worldwide. Smart facial cleansing devices, anti-aging tools and more.", "Beauty", "", "https://invl.me/clnhxpx", "foreo.com", "global"),
+
   // ── Beauty — PH ─────────────────────────────────────────────────────────────
   deal("ia-sephora-1",    "Sephora PH",       "Top Beauty Brands & Skincare",               "Shop premium beauty, skincare and makeup from the world's top brands.",                     "Beauty",    "",                   "https://invl.me/clnfka2",   "sephora.ph",         "PH"),
   deal("ia-papique-1",    "Papique",          "Premium Beauty & Skincare",                  "Discover curated beauty and skincare products delivered to your door.",                     "Beauty",    "",                   "https://invl.us/clnfqhf",   "papique.com",        "PH"),
 
+  // ── Beauty — Asia ────────────────────────────────────────────────────────────
+  deal("ia-watsons-my-1", "Watsons Malaysia", "Health & Beauty Deals",                      "Malaysia's leading health and beauty retailer. Skincare, makeup, wellness and more.",       "Beauty",    "",                   "https://invl.me/clnhxq6",   "watsons.com.my",     "global"),
+  deal("ia-watsons-sg-1", "Watsons Singapore","Health & Beauty Deals",                      "Singapore's trusted health and beauty destination. Top brands at great prices.",            "Beauty",    "",                   "https://invl.me/clnhxqb",   "watsons.com.sg",     "global"),
+  deal("ia-watsons-id-1", "Watsons Indonesia","Health & Beauty Deals",                      "Indonesia's favourite health and beauty store. Wide range of skincare and wellness.",       "Beauty",    "",                   "https://invl.me/clnhxqd",   "watsons.co.id",      "global"),
+
   // ── Beauty — Global ─────────────────────────────────────────────────────────
-  deal("ia-stylevana-1",  "Stylevana",        "K-Beauty & J-Beauty Deals",                  "Shop Korean and Japanese beauty brands at great prices.",                                   "Beauty",    "STYLEVANA",          "https://miniurl.app/clng02d","stylevana.com",      "global"),
+  deal("ia-stylevana-1",  "Stylevana",        "25% Off K-Beauty & J-Beauty",                "Shop Korean and Japanese beauty brands at great prices. Use code AFFSINGLE25 for 25% off.",  "Beauty",    "AFFSINGLE25",        "https://miniurl.app/clng02d","stylevana.com",      "global"),
 
   // ── Tech — Global ───────────────────────────────────────────────────────────
   deal("ia-protonvpn-1",  "Proton VPN",       "Up to 70% Off — Code Inside",                "Use code VPNINTROPRICE2025 at checkout. World's most trusted VPN.",                         "Tech",      "VPNINTROPRICE2025",  "https://invl.me/clnfk9v",   "protonvpn.com",      "global"),
