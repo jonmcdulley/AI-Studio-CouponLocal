@@ -49,6 +49,7 @@ const LivelyBackground = () => {
 };
 
 export default function App() {
+  useCanonical();
   const navigate = useNavigate();
   const routerLocation = useRouterLocation();
   const activePage = routerLocation.pathname === '/blog' ? 'blog'
