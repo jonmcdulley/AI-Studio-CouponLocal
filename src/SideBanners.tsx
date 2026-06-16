@@ -18,7 +18,7 @@ const BANNER_DEALS: BannerDeal[] = [
   { id: "klook",      store: "Klook",               offer: "10% Off First Booking", code: "KLOOKFIRSTIN", affiliateUrl: "https://invl.me/clng02e",                              logo: "https://www.google.com/s2/favicons?domain=klook.com&sz=64",              category: "Travel",    color: "from-red-500 to-pink-600"       },
   { id: "kkday",      store: "KKday",               offer: "5% Off + 90% Off Tours",code: "KKDAYNEW",     affiliateUrl: "https://invl.me/clnfk9w",                              logo: "https://www.google.com/s2/favicons?domain=kkday.com&sz=64",              category: "Travel",    color: "from-orange-500 to-red-500"     },
   { id: "foreo",      store: "FOREO",               offer: "Up to 30% Off",         code: "",             affiliateUrl: "https://invl.me/clnhxpx",                              logo: "https://www.google.com/s2/favicons?domain=foreo.com&sz=64",              category: "Beauty",    color: "from-purple-500 to-indigo-600"  },
-  { id: "stylevana",  store: "Stylevana",           offer: "25% Off K-Beauty",      code: "AFFSINGLE25",  affiliateUrl: "https://miniurl.app/clng02d",                          logo: "https://www.google.com/s2/favicons?domain=stylevana.com&sz=64",          category: "Beauty",    color: "from-pink-500 to-rose-600"      },
+  { id: "stylevana",  store: "Stylevana",           offer: "19% Off + Free Gifts",  code: "NSJVC3",       affiliateUrl: "https://miniurl.app/clng02d",                          logo: "https://www.google.com/s2/favicons?domain=stylevana.com&sz=64",          category: "Beauty",    color: "from-pink-500 to-rose-600"      },
   { id: "shein",      store: "Shein",               offer: "Up to 60% Off",         code: "SHEINNEW",     affiliateUrl: "https://miniurl.app/clnfk9b",                          logo: "https://www.google.com/s2/favicons?domain=shein.com&sz=64",              category: "Fashion",   color: "from-gray-700 to-gray-900"      },
   { id: "avidlove",   store: "Avidlove",            offer: "12% Off Lingerie",      code: "",             affiliateUrl: "https://www.tkqlhce.com/click-101742508-15719589",     logo: "https://www.google.com/s2/favicons?domain=avidlove.com&sz=64",           category: "Fashion",   color: "from-rose-500 to-pink-700"      },
   { id: "lovebonito", store: "Love Bonito",         offer: "Up to 10.5% Off",       code: "",             affiliateUrl: "https://invl.me/clnjqxs",                              logo: "https://www.google.com/s2/favicons?domain=lovebonito.com&sz=64",         category: "Fashion",   color: "from-fuchsia-500 to-purple-700" },
@@ -47,40 +47,40 @@ function BannerCard({ deal, onClick }: { deal: BannerDeal; onClick: () => void }
       whileHover={{ scale: 1.03 }}
       className={`block w-full rounded-2xl bg-gradient-to-br ${deal.color} text-white shadow-lg overflow-hidden cursor-pointer`}
     >
-      <div className="p-4 flex flex-col gap-3">
+      <div className="p-6 flex flex-col gap-4">
         {/* Header */}
         <div className="flex items-center justify-between">
-          <span className="text-[10px] font-bold uppercase tracking-widest opacity-80">{deal.category}</span>
-          <ExternalLink size={12} className="opacity-60" />
+          <span className="text-xs font-bold uppercase tracking-widest opacity-80">{deal.category}</span>
+          <ExternalLink size={15} className="opacity-60" />
         </div>
 
         {/* Logo + Store */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <img
             src={deal.logo}
             alt={deal.store}
-            className="w-8 h-8 rounded-lg bg-white/20 p-1 object-contain"
+            className="w-12 h-12 rounded-lg bg-white/20 p-1.5 object-contain"
             onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
           />
-          <span className="font-bold text-sm leading-tight">{deal.store}</span>
+          <span className="font-bold text-xl leading-tight">{deal.store}</span>
         </div>
 
         {/* Offer */}
-        <div className="text-xl font-black leading-tight">{deal.offer}</div>
+        <div className="text-4xl font-black leading-tight">{deal.offer}</div>
 
         {/* Code or CTA */}
         {deal.code ? (
-          <div className="bg-white/20 rounded-xl px-3 py-1.5 text-center">
-            <span className="font-mono font-black text-xs tracking-widest">{deal.code}</span>
+          <div className="bg-white/20 rounded-xl px-4 py-2.5 text-center">
+            <span className="font-mono font-black text-base tracking-widest">{deal.code}</span>
           </div>
         ) : (
-          <div className="bg-white/20 rounded-xl px-3 py-1.5 text-center">
-            <span className="text-xs font-bold">Shop Now →</span>
+          <div className="bg-white/20 rounded-xl px-4 py-2.5 text-center">
+            <span className="text-base font-bold">Shop Now →</span>
           </div>
         )}
 
         {/* Sponsored label */}
-        <div className="text-[9px] opacity-50 text-center">Sponsored Deal</div>
+        <div className="text-xs opacity-50 text-center">Sponsored Deal</div>
       </div>
     </motion.a>
   );
@@ -113,7 +113,7 @@ export default function SideBanners() {
   return (
     <>
       {/* Left Banner */}
-      <div className="hidden xl:flex fixed left-4 top-1/2 -translate-y-1/2 w-44 z-20 flex-col gap-3">
+      <div className="hidden 2xl:flex fixed left-4 top-1/2 -translate-y-1/2 w-[28rem] z-20 flex-col gap-4">
         <AnimatePresence mode="wait">
           <BannerCard key={leftDeal.id + '-left'} deal={leftDeal} onClick={() => {}} />
         </AnimatePresence>
@@ -130,7 +130,7 @@ export default function SideBanners() {
       </div>
 
       {/* Right Banner */}
-      <div className="hidden xl:flex fixed right-4 top-1/2 -translate-y-1/2 w-44 z-20 flex-col gap-3">
+      <div className="hidden 2xl:flex fixed right-4 top-1/2 -translate-y-1/2 w-[28rem] z-20 flex-col gap-4">
         <AnimatePresence mode="wait">
           <BannerCard key={rightDeal.id + '-right'} deal={rightDeal} onClick={() => {}} />
         </AnimatePresence>
