@@ -1,3 +1,4 @@
+import { useCanonical } from './hooks/useCanonical';
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate, useLocation as useRouterLocation } from 'react-router-dom';
 import ComparePage from "./ComparePage";
