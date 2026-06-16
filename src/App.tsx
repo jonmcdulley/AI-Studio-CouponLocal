@@ -1,4 +1,3 @@
-import { useCanonical } from './hooks/useCanonical';
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate, useLocation as useRouterLocation } from 'react-router-dom';
 import ComparePage from "./ComparePage";
@@ -25,6 +24,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from './lib/utils';
+import SideBanners from './SideBanners';
 import { searchCoupons, getSuggestedCategories, reverseGeocode, getGroceryLinks, Coupon, GroceryLink } from './services/couponService';
 
 const LivelyBackground = () => {
@@ -383,6 +383,7 @@ export default function App() {
   return (
     <div className="min-h-screen text-[#1A1A1A] font-sans relative">
       <LivelyBackground />
+      <SideBanners />
 
       {/* Header */}
       <header className="sticky top-0 z-30 bg-white/40 backdrop-blur-xl border-b border-white/20 px-4 py-4">
@@ -918,4 +919,3 @@ export default function App() {
     </div>
   );
 }
-
