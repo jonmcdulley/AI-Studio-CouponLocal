@@ -83,6 +83,16 @@ const REAL_DEALS: Coupon[] = [
   // ── Beauty — Global ─────────────────────────────────────────────────────────
   deal("ia-stylevana-1",  "Stylevana",        "25% Off K-Beauty & J-Beauty",                "Shop Korean and Japanese beauty brands at great prices. Use code AFFSINGLE25 for 25% off.",  "Beauty",    "AFFSINGLE25",        "https://miniurl.app/clng02d","stylevana.com",      "global"),
 
+  // ── Fashion — US (CJ) ───────────────────────────────────────────────────────
+  deal("cj-avidlove-1",   "Avidlove",         "Up to 12% Off Lingerie & Nightwear",         "Shop sexy lingerie, sleepwear and nightwear. Affordable and high-quality styles for women worldwide.", "Fashion", "", "https://www.tkqlhce.com/click-101742508-15719589", "avidlove.com", "US"),
+
+  // ── Health & Lifestyle — US (CJ) ────────────────────────────────────────────
+  deal("cj-sleepbeyond-1","Sleep & Beyond",   "Organic Wool Bedding — 10% Off",             "Top 3 wool bedding brand in the US. 100% certified organic cotton and wool comforters, pillows, sheets and more.", "Health", "", "https://www.jdoqocy.com/click-101742508-13814440", "sleepandbeyond.com", "US"),
+
+  // ── Food & Lifestyle — US (CJ) ──────────────────────────────────────────────
+  deal("cj-freshcoffee-1","Fresh Roasted Coffee","10% Off Specialty Coffee & Tea",           "Award-winning freshly roasted specialty coffee delivered to your door. Hundreds of single-origin and blended roasts.", "Lifestyle", "", "https://www.tkqlhce.com/click-101742508-14515066", "freshroastedcoffee.com", "US"),
+  deal("cj-peets-1",      "Peet's Coffee",    "10% Off — The Original Craft Coffee",        "Fresh-from-the-roastery coffee delivered to your door. Peet's sources the highest quality beans roasted by hand.", "Lifestyle", "", "https://www.anrdoezrs.net/click-101742508-13970947", "peets.com", "US"),
+
   // ── Tech — Global ───────────────────────────────────────────────────────────
   deal("ia-protonvpn-1",  "Proton VPN",       "Up to 70% Off — Code Inside",                "Use code VPNINTROPRICE2025 at checkout. World's most trusted VPN.",                         "Tech",      "VPNINTROPRICE2025",  "https://invl.me/clnfk9v",   "protonvpn.com",      "global"),
   deal("ia-banggood-1",   "Banggood Global",  "Up to 21% Off Gadgets & Electronics",        "Huge discounts on gadgets, electronics and accessories worldwide.",                         "Tech",      "BANGGOOD21",         "https://invl.me/clnfk96",   "banggood.com",       "global"),
@@ -140,7 +150,7 @@ export async function searchCoupons(location: string, query = "", region?: Regio
 }
 
 export async function getSuggestedCategories(_location: string): Promise<string[]> {
-  return ["Travel", "Fashion", "Tech", "Beauty", "Shopping", "Dining", "Education", "Lifestyle"];
+  return ["Travel", "Fashion", "Tech", "Beauty", "Health", "Shopping", "Dining", "Education", "Lifestyle"];
 }
 
 export async function reverseGeocode(lat: number, lng: number): Promise<string> {
