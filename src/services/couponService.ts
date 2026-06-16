@@ -10,7 +10,7 @@ export interface Coupon {
   affiliateUrl?: string;
   sourceUrl?: string;
   logo?: string;
-  region: "PH" | "US" | "global"; // NEW
+  region: "PH" | "US" | "global";
 }
 
 export interface GroceryLink {
@@ -68,8 +68,12 @@ const REAL_DEALS: Coupon[] = [
   deal("ia-taobao-1",     "Taobao",           "Up to 18% Off Selected Items",               "Shop millions of products from China's largest marketplace.",                                "Fashion",   "",                   "https://invl.me/clnfk9p",   "taobao.com",         "global"),
   deal("ia-bernardelli-1","Bernardelli",      "Premium Italian Fashion",                    "Explore premium Italian fashion and lifestyle products worldwide.",                          "Fashion",   "",                   "https://invl.me/clnfk9z",   "bernardelli.com",    "global"),
 
+  // ── Fashion — US (CJ) ───────────────────────────────────────────────────────
+  deal("cj-avidlove-1",   "Avidlove",         "Up to 12% Off Lingerie & Nightwear",         "Shop sexy lingerie, sleepwear and nightwear. Affordable and high-quality styles for women worldwide.", "Fashion", "", "https://www.tkqlhce.com/click-101742508-15719589", "avidlove.com", "global"),
+
   // ── Beauty — Global ─────────────────────────────────────────────────────────
   deal("ia-foreo-1",      "FOREO",            "Skincare Tech — Up to 30% Off",              "Swedish beauty-tech brand loved worldwide. Smart facial cleansing devices, anti-aging tools and more.", "Beauty", "", "https://invl.me/clnhxpx", "foreo.com", "global"),
+  deal("ia-stylevana-1",  "Stylevana",        "25% Off K-Beauty & J-Beauty",                "Shop Korean and Japanese beauty brands at great prices. Use code AFFSINGLE25 for 25% off.",  "Beauty",    "AFFSINGLE25",        "https://miniurl.app/clng02d","stylevana.com",      "global"),
 
   // ── Beauty — PH ─────────────────────────────────────────────────────────────
   deal("ia-sephora-1",    "Sephora PH",       "Top Beauty Brands & Skincare",               "Shop premium beauty, skincare and makeup from the world's top brands.",                     "Beauty",    "",                   "https://invl.me/clnfka2",   "sephora.ph",         "PH"),
@@ -80,18 +84,12 @@ const REAL_DEALS: Coupon[] = [
   deal("ia-watsons-sg-1", "Watsons Singapore","Health & Beauty Deals",                      "Singapore's trusted health and beauty destination. Top brands at great prices.",            "Beauty",    "",                   "https://invl.me/clnhxqb",   "watsons.com.sg",     "global"),
   deal("ia-watsons-id-1", "Watsons Indonesia","Health & Beauty Deals",                      "Indonesia's favourite health and beauty store. Wide range of skincare and wellness.",       "Beauty",    "",                   "https://invl.me/clnhxqd",   "watsons.co.id",      "global"),
 
-  // ── Beauty — Global ─────────────────────────────────────────────────────────
-  deal("ia-stylevana-1",  "Stylevana",        "25% Off K-Beauty & J-Beauty",                "Shop Korean and Japanese beauty brands at great prices. Use code AFFSINGLE25 for 25% off.",  "Beauty",    "AFFSINGLE25",        "https://miniurl.app/clng02d","stylevana.com",      "global"),
+  // ── Health — US (CJ) ────────────────────────────────────────────────────────
+  deal("cj-sleepbeyond-1","Sleep & Beyond",   "Organic Wool Bedding — 10% Off",             "Top 3 wool bedding brand in the US. 100% certified organic cotton and wool comforters, pillows, sheets and more.", "Health", "", "https://www.jdoqocy.com/click-101742508-13814440", "sleepandbeyond.com", "global"),
 
-  // ── Fashion — US (CJ) ───────────────────────────────────────────────────────
-  deal("cj-avidlove-1",   "Avidlove",         "Up to 12% Off Lingerie & Nightwear",         "Shop sexy lingerie, sleepwear and nightwear. Affordable and high-quality styles for women worldwide.", "Fashion", "", "https://www.tkqlhce.com/click-101742508-15719589", "avidlove.com", "US"),
-
-  // ── Health & Lifestyle — US (CJ) ────────────────────────────────────────────
-  deal("cj-sleepbeyond-1","Sleep & Beyond",   "Organic Wool Bedding — 10% Off",             "Top 3 wool bedding brand in the US. 100% certified organic cotton and wool comforters, pillows, sheets and more.", "Health", "", "https://www.jdoqocy.com/click-101742508-13814440", "sleepandbeyond.com", "US"),
-
-  // ── Food & Lifestyle — US (CJ) ──────────────────────────────────────────────
-  deal("cj-freshcoffee-1","Fresh Roasted Coffee","10% Off Specialty Coffee & Tea",           "Award-winning freshly roasted specialty coffee delivered to your door. Hundreds of single-origin and blended roasts.", "Lifestyle", "", "https://www.tkqlhce.com/click-101742508-14515066", "freshroastedcoffee.com", "US"),
-  deal("cj-peets-1",      "Peet's Coffee",    "10% Off — The Original Craft Coffee",        "Fresh-from-the-roastery coffee delivered to your door. Peet's sources the highest quality beans roasted by hand.", "Lifestyle", "", "https://www.anrdoezrs.net/click-101742508-13970947", "peets.com", "US"),
+  // ── Lifestyle — US (CJ) ─────────────────────────────────────────────────────
+  deal("cj-freshcoffee-1","Fresh Roasted Coffee","10% Off Specialty Coffee & Tea",           "Award-winning freshly roasted specialty coffee delivered to your door. Hundreds of single-origin and blended roasts.", "Lifestyle", "", "https://www.tkqlhce.com/click-101742508-14515066", "freshroastedcoffee.com", "global"),
+  deal("cj-peets-1",      "Peet's Coffee",    "10% Off — The Original Craft Coffee",        "Fresh-from-the-roastery coffee delivered to your door. Peet's sources the highest quality beans roasted by hand.", "Lifestyle", "", "https://www.anrdoezrs.net/click-101742508-13970947", "peets.com", "global"),
 
   // ── Tech — Global ───────────────────────────────────────────────────────────
   deal("ia-protonvpn-1",  "Proton VPN",       "Up to 70% Off — Code Inside",                "Use code VPNINTROPRICE2025 at checkout. World's most trusted VPN.",                         "Tech",      "VPNINTROPRICE2025",  "https://invl.me/clnfk9v",   "protonvpn.com",      "global"),
@@ -113,7 +111,28 @@ const REAL_DEALS: Coupon[] = [
 // ─── Geo Detection ────────────────────────────────────────────────────────────
 let cachedRegion: Region | null = null;
 
-export async function detectRegion(): Promise<Region> {
+// Detect region from location string (overrides IP detection when user sets location)
+function detectRegionFromLocation(location: string): Region | null {
+  const loc = location.toLowerCase();
+  const usKeywords = ["usa", "united states", ", us", ", ca", "new york", "los angeles",
+    "chicago", "houston", "phoenix", "philadelphia", "san antonio", "san diego",
+    "dallas", "san jose", "austin", "jacksonville", "san francisco", "seattle",
+    "denver", "washington", "boston", "california", "texas", "florida", "new jersey"];
+  const phKeywords = ["philippines", "manila", "cebu", "davao", "quezon", "makati",
+    "pasig", "taguig", "ph", "pilipinas", "cavite", "laguna", "bulacan"];
+
+  if (usKeywords.some(k => loc.includes(k))) return "US";
+  if (phKeywords.some(k => loc.includes(k))) return "PH";
+  return null;
+}
+
+export async function detectRegion(location?: string): Promise<Region> {
+  // If user has set a location, try to infer region from it first
+  if (location) {
+    const fromLocation = detectRegionFromLocation(location);
+    if (fromLocation) return fromLocation;
+  }
+
   if (cachedRegion) return cachedRegion;
   try {
     const res = await fetch("https://ipapi.co/json/");
@@ -123,7 +142,7 @@ export async function detectRegion(): Promise<Region> {
     else if (country === "US") cachedRegion = "US";
     else cachedRegion = "global";
   } catch {
-    cachedRegion = "global"; // fallback if API fails
+    cachedRegion = "global";
   }
   return cachedRegion;
 }
@@ -131,19 +150,19 @@ export async function detectRegion(): Promise<Region> {
 // ─── Exports ──────────────────────────────────────────────────────────────────
 export async function searchCoupons(location: string, query = "", region?: Region): Promise<Coupon[]> {
   const today = new Date().toISOString().split("T")[0];
-  const detectedRegion = region || await detectRegion();
+  const detectedRegion = region || await detectRegion(location);
 
   const active = REAL_DEALS.filter(c => {
     if (c.expiryDate < today) return false;
-    // show global deals always; show region-specific only if it matches
     return c.region === "global" || c.region === detectedRegion;
   });
 
   if (!query) return active;
-  const q = (query + " " + location).toLowerCase();
+  const q = query.toLowerCase();
   const filtered = active.filter(c =>
     c.store.toLowerCase().includes(q) ||
     c.category.toLowerCase().includes(q) ||
+    c.offer.toLowerCase().includes(q) ||
     c.description.toLowerCase().includes(q)
   );
   return filtered.length > 0 ? filtered : active;
