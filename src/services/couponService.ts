@@ -67,13 +67,14 @@ const REAL_DEALS: Coupon[] = [
   deal("ia-shein-1",      "Shein Global",     "Up to 60% Off + Extra 30% New Users",        "New users: up to 60% off sitewide. Use code SHEINNEW for extra savings.",                   "Fashion",   "SHEINNEW",           "https://miniurl.app/clnfk9b","shein.com",          "global"),
   deal("ia-taobao-1",     "Taobao",           "Up to 18% Off Selected Items",               "Shop millions of products from China's largest marketplace.",                                "Fashion",   "",                   "https://invl.me/clnfk9p",   "taobao.com",         "global"),
   deal("ia-bernardelli-1","Bernardelli",      "Premium Italian Fashion",                    "Explore premium Italian fashion and lifestyle products worldwide.",                          "Fashion",   "",                   "https://invl.me/clnfk9z",   "bernardelli.com",    "global"),
+  deal("ia-lovebonito-1", "Love Bonito",      "Modern Women's Fashion — Up to 10.5% Off",   "Singapore-born womenswear brand with thoughtfully designed everyday pieces, shipped across Asia and beyond.", "Fashion", "", "https://invl.me/clnjqxs", "lovebonito.com", "global"),
 
   // ── Fashion — US (CJ) ───────────────────────────────────────────────────────
   deal("cj-avidlove-1",   "Avidlove",         "Up to 12% Off Lingerie & Nightwear",         "Shop sexy lingerie, sleepwear and nightwear. Affordable and high-quality styles for women worldwide.", "Fashion", "", "https://www.tkqlhce.com/click-101742508-15719589", "avidlove.com", "global"),
 
   // ── Beauty — Global ─────────────────────────────────────────────────────────
   deal("ia-foreo-1",      "FOREO",            "Skincare Tech — Up to 30% Off",              "Swedish beauty-tech brand loved worldwide. Smart facial cleansing devices, anti-aging tools and more.", "Beauty", "", "https://invl.me/clnhxpx", "foreo.com", "global"),
-  deal("ia-stylevana-1",  "Stylevana",        "25% Off K-Beauty & J-Beauty",                "Shop Korean and Japanese beauty brands at great prices. Use code AFFSINGLE25 for 25% off.",  "Beauty",    "AFFSINGLE25",        "https://miniurl.app/clng02d","stylevana.com",      "global"),
+  deal("ia-stylevana-1",  "Stylevana",        "19% Off + Free Gifts on Orders $69+",        "Shop Korean and Japanese beauty brands at great prices. Use code NSJVC3 for 19% off plus free gifts on orders $69 or more.", "Beauty", "NSJVC3",        "https://miniurl.app/clng02d","stylevana.com",      "global"),
 
   // ── Beauty — PH ─────────────────────────────────────────────────────────────
   deal("ia-sephora-1",    "Sephora PH",       "Top Beauty Brands & Skincare",               "Shop premium beauty, skincare and makeup from the world's top brands.",                     "Beauty",    "",                   "https://invl.me/clnfka2",   "sephora.ph",         "PH"),

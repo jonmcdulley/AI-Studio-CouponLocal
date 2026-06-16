@@ -21,6 +21,7 @@ const BANNER_DEALS: BannerDeal[] = [
   { id: "stylevana",  store: "Stylevana",           offer: "25% Off K-Beauty",      code: "AFFSINGLE25",  affiliateUrl: "https://miniurl.app/clng02d",                          logo: "https://www.google.com/s2/favicons?domain=stylevana.com&sz=64",          category: "Beauty",    color: "from-pink-500 to-rose-600"      },
   { id: "shein",      store: "Shein",               offer: "Up to 60% Off",         code: "SHEINNEW",     affiliateUrl: "https://miniurl.app/clnfk9b",                          logo: "https://www.google.com/s2/favicons?domain=shein.com&sz=64",              category: "Fashion",   color: "from-gray-700 to-gray-900"      },
   { id: "avidlove",   store: "Avidlove",            offer: "12% Off Lingerie",      code: "",             affiliateUrl: "https://www.tkqlhce.com/click-101742508-15719589",     logo: "https://www.google.com/s2/favicons?domain=avidlove.com&sz=64",           category: "Fashion",   color: "from-rose-500 to-pink-700"      },
+  { id: "lovebonito", store: "Love Bonito",         offer: "Up to 10.5% Off",       code: "",             affiliateUrl: "https://invl.me/clnjqxs",                              logo: "https://www.google.com/s2/favicons?domain=lovebonito.com&sz=64",         category: "Fashion",   color: "from-fuchsia-500 to-purple-700" },
   { id: "protonvpn",  store: "Proton VPN",          offer: "Up to 70% Off",         code: "VPNINTROPRICE2025", affiliateUrl: "https://invl.me/clnfk9v",                         logo: "https://www.google.com/s2/favicons?domain=protonvpn.com&sz=64",          category: "Tech",      color: "from-violet-600 to-purple-700"  },
   { id: "sleepbeyond",store: "Sleep & Beyond",      offer: "10% Off Bedding",       code: "",             affiliateUrl: "https://www.jdoqocy.com/click-101742508-13814440",     logo: "https://www.google.com/s2/favicons?domain=sleepandbeyond.com&sz=64",     category: "Health",    color: "from-teal-500 to-emerald-600"   },
   { id: "freshcoffee",store: "Fresh Roasted Coffee",offer: "10% Off Coffee & Tea",  code: "",             affiliateUrl: "https://www.tkqlhce.com/click-101742508-14515066",     logo: "https://www.google.com/s2/favicons?domain=freshroastedcoffee.com&sz=64", category: "Lifestyle", color: "from-amber-600 to-orange-700"   },
@@ -100,7 +101,7 @@ export default function SideBanners() {
     const interval = setInterval(() => {
       setLeftIndex(prev => (prev + 2) % shuffled.length);
       setRightIndex(prev => (prev + 2) % shuffled.length);
-    }, 6000);
+    }, 12000);
     return () => clearInterval(interval);
   }, [shuffled]);
 

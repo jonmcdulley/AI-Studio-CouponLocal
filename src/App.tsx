@@ -1,4 +1,3 @@
-import { useCanonical } from './hooks/useCanonical';
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate, useLocation as useRouterLocation } from 'react-router-dom';
 import ComparePage from "./ComparePage";
@@ -26,7 +25,7 @@ import {
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from './lib/utils';
 import SideBanners from './SideBanners';
-import { searchCoupons, getSuggestedCategories, reverseGeocode, getGroceryLinks, Coupon, GroceryLink } from './services/couponService';
+import { searchCoupons, getSuggestedCategories, reverseGeocode, Coupon } from './services/couponService';
 
 const LivelyBackground = () => {
   return (
@@ -72,7 +71,6 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [coupons, setCoupons] = useState<Coupon[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
-  const [groceryLinks, setGroceryLinks] = useState<GroceryLink[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [searching, setSearching] = useState(false);
@@ -157,13 +155,11 @@ export default function App() {
     try {
       const results = await Promise.allSettled([
         searchCoupons(loc),
-        getSuggestedCategories(loc),
-        getGroceryLinks(loc)
+        getSuggestedCategories(loc)
       ]);
 
       if (results[0].status === 'fulfilled') setCoupons(results[0].value);
       if (results[1].status === 'fulfilled') setCategories(results[1].value);
-      if (results[2].status === 'fulfilled') setGroceryLinks(results[2].value);
       
       results.forEach((res, i) => {
         if (res.status === 'rejected') {
@@ -601,60 +597,6 @@ export default function App() {
   </div>
 </section>
 
-        {/* Grocery Links & Flyers */}
-        <section className="mb-10">
-          <div className="flex items-center gap-2 mb-4">
-            <BookOpen size={18} className="text-indigo-600" />
-            <h2 className="text-sm font-bold uppercase tracking-wider text-gray-400">Popular Coupon Sites</h2>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {loading ? (
-              Array(4).fill(0).map((_, i) => (
-                <div key={i} className="h-24 bg-white/40 backdrop-blur-sm animate-pulse rounded-2xl border border-white/20" />
-              ))
-            ) : groceryLinks.length > 0 ? (
-              groceryLinks.map((link, idx) => (
-                <motion.a
-                  key={idx}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.02, y: -2 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="flex items-center gap-4 p-4 bg-white/60 backdrop-blur-md border border-white/40 rounded-2xl hover:bg-white/80 transition-all group shadow-sm"
-                >
-                  <div className={cn(
-                    "w-12 h-12 rounded-xl flex items-center justify-center shrink-0 transition-colors",
-                    link.type === 'flyer' ? "bg-emerald-50 text-emerald-600" : "bg-indigo-50 text-indigo-600"
-                  )}>
-                    {link.logo ? (
-                      <img
-                        src={link.logo}
-                        alt={link.name}
-                        className="w-8 h-8 object-contain rounded-lg"
-                        onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
-                      />
-                    ) : (
-                      link.type === 'flyer' ? <BookOpen size={24} /> : <Ticket size={24} />
-                    )}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-1.5 mb-0.5">
-                      <h3 className="font-bold text-gray-900 truncate">{link.name}</h3>
-                      <ExternalLink size={12} className="text-gray-400 group-hover:text-indigo-600 transition-colors" />
-                    </div>
-                    <p className="text-xs text-gray-500 line-clamp-1">{link.description}</p>
-                  </div>
-                </motion.a>
-              ))
-            ) : (
-              <div className="col-span-full text-center py-6 bg-white/40 backdrop-blur-sm rounded-2xl border border-dashed border-white/60">
-                <p className="text-gray-400 text-xs">No direct links found for this area.</p>
-              </div>
-            )}
-          </div>
-        </section>
-
         {/* Coupon Sections */}
         <div className="space-y-12">
           {/* Digital Coupons */}
@@ -920,4 +862,3 @@ export default function App() {
     </div>
   );
 }
-
