@@ -14,6 +14,33 @@ interface Article {
 }
 
 const articles: Article[] = [
+{
+    id: '6',
+    title: 'Best VPN Deals in September 2026 — Tested & Verified',
+    summary: 'We tested every major VPN deal this month so you don\'t have to. Here are the real discounts on NordVPN, Surfshark and Proton VPN right now.',
+    readTime: '5 min read',
+    category: 'VPN Deals',
+    date: 'September 15, 2026',
+    content: [
+      'If you\'ve been putting off getting a VPN, September 2026 is a genuinely good time to buy. All three of our top recommended VPN providers — NordVPN, Surfshark, and Proton VPN — are running verified discounts right now that bring their prices down to under $3 per month.',
+      'We tested every deal at checkout this month to make sure these discounts are real. Here\'s exactly what you\'ll pay.',
+      'NordVPN — Up to 75% Off (Best for Security)',
+      'NordVPN is currently offering 75% off its 2-year plan, bringing the monthly cost down to $3.49 per month — or as low as $3.09 per month through select checkout flows. The deal includes 3 bonus months free, giving you 27 months total. No coupon code is needed — the discount applies automatically at checkout through our affiliate link.',
+      'Why choose NordVPN? It\'s the most trusted name in VPN services, with six independent audits of its no-logs policy. It\'s also the fastest VPN we\'ve tested for streaming, with thousands of servers globally. The 30-day money-back guarantee makes it risk-free to try.',
+      'Best plan: 2-year Basic at $3.49/month ($94.23 for 27 months).',
+      'Surfshark — Up to 87% Off (Best Value)',
+      'Surfshark is our pick for best value in 2026. The current deal takes up to 87% off the 2-year plan, bringing it down to just $1.78 per month — making it the cheapest premium VPN per month we\'ve found. Like NordVPN, the discount applies automatically through our link with no code needed.',
+      'What makes Surfshark stand out is its unlimited device policy — most VPNs cap you at 5 to 10 simultaneous connections, but Surfshark lets you protect every device you own under one subscription. The 2-year One plan at $2.49 per month also adds antivirus protection and breach alerts at no extra cost.',
+      'Best plan: 2-year Starter at $1.78/month or 2-year One at $2.49/month (both include 3 free months).',
+      'Proton VPN — Up to 70% Off (Best for Privacy)',
+      'Proton VPN is built by the same Swiss team behind ProtonMail and takes privacy more seriously than any other VPN on this list. Its 2-year plan is currently 70% off at $2.99 per month ($71.76 billed upfront for 24 months). The 1-year plan is 60% off at $3.99 per month.',
+      'Proton VPN is the only major VPN with fully open-source apps — meaning independent security researchers can inspect every line of code. It also offers a genuinely usable free plan with unlimited data if you want to try before committing. No coupon code required — the discount is applied automatically.',
+      'Best plan: 2-year Plus at $2.99/month — the best long-term privacy investment.',
+      'Which VPN Should You Choose?',
+      'If budget is your main concern: Surfshark at $1.78/month is the cheapest premium VPN available right now. If security and speed matter most: NordVPN at $3.49/month has the strongest track record and fastest servers. If privacy is non-negotiable: Proton VPN at $2.99/month is built by the most privacy-focused team in the industry.',
+      'All three come with a 30-day money-back guarantee, so you can try any of them risk-free. Click the deals on our main page to get the current discount automatically applied at checkout — no codes needed.',
+    ],
+  },
   {
     id: '1',
     title: '10 Ways to Save More on Every Online Order',
@@ -106,33 +133,6 @@ const articles: Article[] = [
       'The scanner works with standard QR codes, EAN-13 barcodes, UPC codes, and most common coupon formats used by major retailers.',
     ],
   },
-  {
-    id: '6',
-    title: 'Best VPN Deals in September 2026 — Tested & Verified',
-    summary: 'We tested every major VPN deal this month so you don\'t have to. Here are the real discounts on NordVPN, Surfshark and Proton VPN right now.',
-    readTime: '5 min read',
-    category: 'VPN Deals',
-    date: 'September 15, 2026',
-    content: [
-      'If you\'ve been putting off getting a VPN, September 2026 is a genuinely good time to buy. All three of our top recommended VPN providers — NordVPN, Surfshark, and Proton VPN — are running verified discounts right now that bring their prices down to under $3 per month.',
-      'We tested every deal at checkout this month to make sure these discounts are real. Here\'s exactly what you\'ll pay.',
-      'NordVPN — Up to 75% Off (Best for Security)',
-      'NordVPN is currently offering 75% off its 2-year plan, bringing the monthly cost down to $3.49 per month — or as low as $3.09 per month through select checkout flows. The deal includes 3 bonus months free, giving you 27 months total. No coupon code is needed — the discount applies automatically at checkout through our affiliate link.',
-      'Why choose NordVPN? It\'s the most trusted name in VPN services, with six independent audits of its no-logs policy. It\'s also the fastest VPN we\'ve tested for streaming, with thousands of servers globally. The 30-day money-back guarantee makes it risk-free to try.',
-      'Best plan: 2-year Basic at $3.49/month ($94.23 for 27 months).',
-      'Surfshark — Up to 87% Off (Best Value)',
-      'Surfshark is our pick for best value in 2026. The current deal takes up to 87% off the 2-year plan, bringing it down to just $1.78 per month — making it the cheapest premium VPN per month we\'ve found. Like NordVPN, the discount applies automatically through our link with no code needed.',
-      'What makes Surfshark stand out is its unlimited device policy — most VPNs cap you at 5 to 10 simultaneous connections, but Surfshark lets you protect every device you own under one subscription. The 2-year One plan at $2.49 per month also adds antivirus protection and breach alerts at no extra cost.',
-      'Best plan: 2-year Starter at $1.78/month or 2-year One at $2.49/month (both include 3 free months).',
-      'Proton VPN — Up to 70% Off (Best for Privacy)',
-      'Proton VPN is built by the same Swiss team behind ProtonMail and takes privacy more seriously than any other VPN on this list. Its 2-year plan is currently 70% off at $2.99 per month ($71.76 billed upfront for 24 months). The 1-year plan is 60% off at $3.99 per month.',
-      'Proton VPN is the only major VPN with fully open-source apps — meaning independent security researchers can inspect every line of code. It also offers a genuinely usable free plan with unlimited data if you want to try before committing. No coupon code required — the discount is applied automatically.',
-      'Best plan: 2-year Plus at $2.99/month — the best long-term privacy investment.',
-      'Which VPN Should You Choose?',
-      'If budget is your main concern: Surfshark at $1.78/month is the cheapest premium VPN available right now. If security and speed matter most: NordVPN at $3.49/month has the strongest track record and fastest servers. If privacy is non-negotiable: Proton VPN at $2.99/month is built by the most privacy-focused team in the industry.',
-      'All three come with a 30-day money-back guarantee, so you can try any of them risk-free. Click the deals on our main page to get the current discount automatically applied at checkout — no codes needed.',
-    ],
-  },
 ];
 
 export default function BlogPage() {
@@ -182,7 +182,7 @@ export default function BlogPage() {
 
             <div className="space-y-4">
               {selectedArticle.content.map((paragraph, i) => (
-                <p key={i} className={`leading-relaxed ${i === 0 ? 'text-gray-700 font-medium text-base' : 'text-gray-500 text-sm'}`}>
+                <p key={i} className={`leading-relaxed ${i === 0 ? 'text-gray-900 font-medium text-base' : 'text-gray-800 text-sm'}`}>
                   {paragraph}
                 </p>
               ))}
